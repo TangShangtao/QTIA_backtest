@@ -1,0 +1,3 @@
+/Users/lingxiao/Desktop/startup/Crypto_backtest_cpp/cmake-build-debug/CMakeFiles/Crypto_backtest_cpp.dir
+/Users/lingxiao/Desktop/startup/Crypto_backtest_cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/lingxiao/Desktop/startup/Crypto_backtest_cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
