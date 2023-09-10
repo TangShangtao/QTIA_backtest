@@ -7,5 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 # 
-cmake-build-debug
 .vscode/
+build/
+bin/

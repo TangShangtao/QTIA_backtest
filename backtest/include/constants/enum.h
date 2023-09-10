@@ -5,7 +5,7 @@
 
 #pragma once
 
-enum InstrumentType
+enum class InstrumentType
 {
     Spot,
     FutureThisWeek,
@@ -18,7 +18,7 @@ enum InstrumentType
     Option, 
     Forex   
 };
-enum InstrumentTypeClass
+enum class InstrumentTypeClass
 {
     Spot,
     ForwardFuture,
@@ -27,19 +27,20 @@ enum InstrumentTypeClass
     CFD
 };
 // TODO 
-enum CurrencyType
+enum class CurrencyType
 {
     USD,
     USDT,
     BTC
 };
 // TODO
-enum ExchangeType
+enum class ExchangeType
 {
     HuobiPerpUSDT,
     HuobiPerpUSDTCross,
     Bitasset,
     BinanceUsdMargin,
+    BinanceCoinMargin,
     NewOkcoinUSDT,
     Ftx,
     BitMEX,

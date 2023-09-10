@@ -6,12 +6,17 @@
 
 #include "constants/marco.h"
 #include "constants/enum.h"
+#include "../utils.h"
+#include "trade_types/exchange_type.h"
 
 #include <string>
-#include <chrono>
+#include <vector>
 #include <cinttypes>
 #include <array>
 #include <algorithm>
+#include <fstream>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 NAMESPACE_BEGIN
 class Instrument
@@ -23,10 +28,9 @@ private:
     CurrencyType        base_ccy_;
     CurrencyType        quote_ccy_;
     bool                trading_;
-    // tm or uint?
-    std::uint64_t       expiration_date_;
-    std::uint64_t       expiration_dt_;
-    std::uint64_t       change_contract_dt;
+
+    DateType            expiration_date_;
+    DurationType        change_contract_dt_;
 
     InstrumentTypeClass instrument_type_class_;
     double              future_size_precision_;
@@ -43,6 +47,8 @@ private:
         ExchangeType::NewOkcoinUSDT,
         ExchangeType::Ftx
     };
+    static json apiconfig_;
+    static DateType main_contract_change_duration_;
 
 public:
     Instrument(
@@ -51,7 +57,7 @@ public:
         InstrumentType contract_type, 
         CurrencyType base_ccy, 
         CurrencyType quote_ccy, 
-        bool trading
+        bool trading = true
         ):   
         instrument_id_(instrument_id),
         exchange_id_(exchange_id),
@@ -69,8 +75,35 @@ public:
 private:
     void Process()
     {
+        auto parse_name = StrUtils::SplitString(instrument_id_, '_');
+        std::string exchange_id = parse_name[0];
+        std::string symbol = parse_name[1];
         instrument_type_class_ = GetInstrumentTypeClass();
-        // TODO
+        // TODO 逻辑?
+        if (instrument_type_class_ != InstrumentTypeClass::Spot)
+        {
+            std::vector<std::string> keys = 
+            {"Exchanges", exchange_id, "Future_size_precision", symbol};
+            std::string tmp = NestedGet(apiconfig_, keys);
+            future_size_precision_ = std::stoi(tmp.c_str());
+            if (instrument_type_class_ == InstrumentTypeClass::ReverseFuture)
+            {
+                settlement_ccy_ = base_ccy_;
+                keys = {"Exchanges", exchange_id, "Future_contract_usd_face", symbol};
+                tmp = NestedGet(apiconfig_, keys);
+                if (tmp == "")
+                {
+                    // ERROR LOG
+                    return;
+                }
+                future_contract_usd_ = std::stoi(tmp.c_str());
+            }
+            else if (instrument_type_class_ == InstrumentTypeClass::ForwardFuture)
+            {
+                settlement_ccy_ = quote_ccy_;
+            }
+
+        }
     }
     InstrumentTypeClass GetInstrumentTypeClass() const
     {
@@ -96,12 +129,58 @@ private:
             return InstrumentTypeClass::CFD;
         }
         return InstrumentTypeClass::ReverseFuture;
+    }
+
+    void GetContractExpirationDate(DurationType dt, ExchangeType exchange)
+    {
+        DateType expiration_date = Exchange::GetContractNextExpirationDate(dt, exchange_id_);
+        DateType next_expiration_date = Exchange::GetContractNextExpirationDate(dt, exchange_id_);
+        
+        if (contract_type_ == InstrumentType::FutureThisQuarter)
+        {
+            if (dt <= (expiration_date - main_contract_change_duration_))
+            {
+                expiration_date_ = expiration_date;
+            }
+            else
+            {
+                expiration_date_ = next_expiration_date;
+            }
+        }
+        else if (contract_type_ == InstrumentType::FutureNextQuarter)
+        {
+            if (dt <= (expiration_date - main_contract_change_duration_))
+            {
+                expiration_date_ = next_expiration_date;
+            }
+            else
+            {
+                expiration_date_ = expiration_date;
+            }
+        }
+        change_contract_dt_ = expiration_date - main_contract_change_duration_;
 
     }
 
-
+    static std::string NestedGet(const json& root, const std::vector<std::string>& keys) 
+    {
+        json obj = root;
+        for (const auto& key : keys) 
+        {
+            if (!obj.contains(key)) 
+            {
+                return ""; 
+            }
+            obj = obj[key];
+        }
+        return obj;
+    }
 };
+std::ifstream f("../../common/apiconfig.json");
+json Instrument::apiconfig_ = json::parse(f);
+
 NAMESPACE_END;
+
 
 
 
