@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "constants/enum.h"
-#include "constants/marco.h"
+#include "Constants/Enum.h"
+#include "Constants/Marco.h"
 
 #include <cinttypes>
 #include <string>

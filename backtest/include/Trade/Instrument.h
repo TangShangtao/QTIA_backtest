@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "constants/marco.h"
-#include "constants/enum.h"
-#include "../utils.h"
-#include "trade_types/exchange_type.h"
+#include "Constants/Marco.h"
+#include "Constants/Enum.h"
+#include "../Utils.h"
+#include "Trade/Exchange.h"
 
 #include <string>
 #include <vector>
