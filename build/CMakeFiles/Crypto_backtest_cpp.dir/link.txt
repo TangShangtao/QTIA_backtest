@@ -1,1 +1,0 @@
-/usr/bin/g++  -g   CMakeFiles/Crypto_backtest_cpp.dir/main.cpp.o  -o ../bin/Crypto_backtest_cpp 

@@ -1,3 +1,0 @@
-/home/tushetou/QTIA_backtest/build/CMakeFiles/rebuild_cache.dir
-/home/tushetou/QTIA_backtest/build/CMakeFiles/Crypto_backtest_cpp.dir
-/home/tushetou/QTIA_backtest/build/CMakeFiles/edit_cache.dir

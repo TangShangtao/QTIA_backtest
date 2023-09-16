@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/tushetou/QTIA_backtest/build",
-  "command": "/usr/bin/g++   -I/home/tushetou/QTIA_backtest/backtest/include  -g   -std=gnu++1z -o CMakeFiles/Crypto_backtest_cpp.dir/main.cpp.o -c /home/tushetou/QTIA_backtest/main.cpp",
-  "file": "/home/tushetou/QTIA_backtest/main.cpp"
-}
-]
