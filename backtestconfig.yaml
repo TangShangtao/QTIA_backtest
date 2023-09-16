@@ -1,0 +1,21 @@
+# replayer config
+replayer:
+    apiconfig_path: ./Common/apiconfig.json
+    start:          202010100900
+    end:            202210100900
+    format:         parquet
+    path:           ./Storage
+# match engine config
+match:
+    name:           sampleMatch   # load match engine dynamically
+    # this match engine's config
+    slippage:       1
+
+# strategy config
+strategy:
+    name:           sampleStrategy # load strategy dynamically
+    # this strategy's config
+    symbols:        ["BTC.USDT"]
+
+dataloader:
+    name:           sampleDataLoader #load dataloader dynamically

@@ -1,6 +1,8 @@
 //
 // Created by TangShangtao on 2023/9/4.
 //
+#pragma once
+
 #include <sstream>
 #include <string>
 #include <vector>

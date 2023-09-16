@@ -48,3 +48,9 @@ enum class ExchangeType
     Yahoo
 
 };
+
+enum class SideType
+{
+    Bid,
+    ask
+};

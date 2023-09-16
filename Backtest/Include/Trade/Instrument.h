@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "Constants/Marco.h"
-#include "Constants/Enum.h"
-#include "../Utils.h"
+#include "Constant/Marco.h"
+#include "Constant/Enum.h"
+#include "../Utils/StrUtils.h"
 #include "Trade/Exchange.h"
 
 #include <string>

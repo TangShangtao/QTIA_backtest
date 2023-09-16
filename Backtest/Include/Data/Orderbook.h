@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Constants/Marco.h"
+#include "Constant/Marco.h"
 
 #include <cinttypes>
 #include <cstring>
@@ -30,7 +30,7 @@ class DepthImpl
 {
     static constexpr  std::int8_t klevel{N};
 //        Instrument instrument {};
-    std::int64_t timestamp{};
+    std::uint64_t timestamp{};
     std::array<OrderBookLevel, N> bid_level{};
     std::array<OrderBookLevel, N> ask_level{};
 
