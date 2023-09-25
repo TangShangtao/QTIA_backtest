@@ -176,8 +176,8 @@ private:
         return obj;
     }
 };
-std::ifstream f("../../common/apiconfig.json");
-json Instrument::apiconfig_ = json::parse(f);
+// std::ifstream f("../../common/apiconfig.json");
+// json Instrument::apiconfig_ = json::parse(f);
 
 NAMESPACE_END;
 
