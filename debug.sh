@@ -1,15 +1,18 @@
 #!/bin/bash
-
-# 检查 build 目录是否存在，如果不存在则创建并进入
 if [ ! -d "build" ]; then
     mkdir build
 fi
-cd build
+if [ ! -d "bin" ]; then
+    mkdir bin
+fi
+if [ ! -d "bin/config" ]; then
+    mkdir bin/config
+fi
+cp ./Backtest/Common/apiconfig.json ./bin/config
+cp ./Backtest/Common/backtestconfig.yaml ./bin/config
 
-# 运行 CMake 和 Make
-cmake ..
-make
+cd build && cmake ..
+make -j
 
-# 切换到 bin 目录并执行可执行文件
 cd ../bin
 ./Crypto_backtest_cpp

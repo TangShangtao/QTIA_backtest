@@ -5,7 +5,5 @@
 
 int main() 
 {
-    // INFO("abcd");
-    int i = 11;
-    // INFO("abcd, {}", i);
+    const std::string configFile = ""; 
 }

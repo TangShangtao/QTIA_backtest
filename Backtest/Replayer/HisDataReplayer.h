@@ -11,7 +11,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include <yaml.h>
+#include <yaml-cpp/yaml.h>
 NAMESPACE_BEGIN
 
 class HisDataReplayer
