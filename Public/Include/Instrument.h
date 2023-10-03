@@ -2,19 +2,19 @@
 // Created by TangShangtao on 2023/8/28.
 //
 
-#pragma once
+// #pragma once
 
-#include "Constant/Marco.h"
-#include "Constant/Enum.h"
-#include "../Utils/StrUtils.h"
-#include "Trade/Exchange.h"
+// #include "Constant/Marco.h"
+// #include "Constant/Enum.h"
+// #include "../Utils/StrUtils.h"
+// #include "Trade/Exchange.h"
 
-#include <string>
-#include <vector>
-#include <cinttypes>
-#include <array>
-#include <algorithm>
-#include <fstream>
+// #include <string>
+// #include <vector>
+// #include <cinttypes>
+// #include <array>
+// #include <algorithm>
+// #include <fstream>
 // #include <nlohmann/json.hpp>
 // using json = nlohmann::json;
 

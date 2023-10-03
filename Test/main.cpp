@@ -1,7 +1,8 @@
-#include <stdio.h>
+#include "Logger.h"
 
-
+using namespace QB;
 int main()
 {
-    printf("Hello world");
+    ToolKit::InitLogger("./config/logger.yaml");
+    INFO("hello world");
 }

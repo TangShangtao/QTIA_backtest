@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Constant/Marco.h"
-
 #include <iostream>
 
 #include <spdlog/async.h>
@@ -12,7 +10,8 @@
 #include <fmt/format.h>
 #include <yaml-cpp/yaml.h>
 
-NAMESPACE_BEGIN
+namespace QB{
+namespace ToolKit{
 
 int InitLogger(const YAML::Node& config)
 {
@@ -87,25 +86,28 @@ int InitLogger(const std::string& configFilePath)
     }
     return InitLogger(config);
 }
-NAMESPACE_END;
+
+};
+};
 
 #define DEBUG(...)                              \
 {                                               \
     auto logger = spdlog::default_logger();     \
-    spdlog_LOGGER_DEBUG(logger, __VA_ARGS__);   \
+    SPDLOG_LOGGER_DEBUG(logger, __VA_ARGS__);   \
 }
 #define INFO(...)                               \
 {                                               \
     auto logger = spdlog::default_logger();     \
-    spdlog_LOGGER_INFO(logger, __VA_ARGS__);    \
+    SPDLOG_LOGGER_INFO(logger, __VA_ARGS__);    \
 }
 #define WARN(...)                               \
 {                                               \
     auto logger = spdlog::default_logger();     \
-    spdlog_LOGGER_WARN(logger, __VA_ARGS__);    \
+    SPDLOG_LOGGER_WARN(logger, __VA_ARGS__);    \
 }
 #define ERROR(...)                              \
 {                                               \
     auto logger = spdlog::default_logger();     \
-    spdlog_LOGGER_ERROR(logger, __VA_ARGS__);   \
+    SPDLOG_LOGGER_ERROR(logger, __VA_ARGS__);   \
 }
+
