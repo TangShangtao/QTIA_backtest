@@ -20,9 +20,9 @@ set(CMAKE_CXX_FLAGES_RELEASE "-O3 -DNDEBUG -fPIC")
 if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
 endif()
-# 生成路径
-set(EXECUTABLE_OUTPUT_PATH ${SolutionRootDir}/bin)
-set(LIBRARY_OUTPUT_PATH ${SolutionRootDir}/lib)
+# 生成路径 -- 此处相对路径为build/CMakeFiles
+set(EXECUTABLE_OUTPUT_PATH ../../bin)
+set(LIBRARY_OUTPUT_PATH ../../lib)
 # 项目属性
 add_subdirectory(Test)
 
