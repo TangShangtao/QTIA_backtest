@@ -3,3 +3,5 @@
 bin/
 build/
 ThirdParty/
+Test/bin/
+Test/build/
