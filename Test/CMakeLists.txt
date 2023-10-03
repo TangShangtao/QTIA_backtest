@@ -15,7 +15,7 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC "${yaml-cppIncludeDir}"
 )
 target_link_directories(${PROJECT_NAME}
-    PUBLIC "$../lib"
+    PUBLIC "../lib"
     PUBLIC "${fmtLibDir}"
     PUBLIC "${spdlogLibDir}"
     PUBLIC "${yaml-cppLibDir}"
@@ -23,6 +23,7 @@ target_link_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC libfmt.a
     PUBLIC libyaml-cpp.a
+    PUBLIC libspdlog.a
     PUBLIC dl
     PUBLIC pthread
 )

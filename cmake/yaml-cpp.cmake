@@ -6,7 +6,7 @@ set(yaml-cppUrlHash SHA256=fbe74bbdcee21d656715688706da3c8becfd946d92cd44705cc60
 
 set(yaml-cppRootDir ${ThirdPartyDir}/yaml-cpp)
 set(yaml-cppIncludeDir ${yaml-cppRootDir}/src/yaml-cpp-${yaml-cppVer}/include)
-set(yaml-cppLibDir ${yaml-cppRootDir}/src/yaml-cpp-${yaml-cppVer}-build)
+set(yaml-cppLibDir ${yaml-cppRootDir}/src/yaml-cpp-${yaml-cppVer}/build)
 
 set(yaml-cppUrl https://github.com/jbeder/yaml-cpp/archive/refs/tags/${yaml-cppVer}.tar.gz)
 set(yaml-cppConfigure cd ../yaml-cpp-${yaml-cppVer} && mkdir build && cd build && cmake ..)
@@ -24,8 +24,8 @@ ExternalProject_Add(yaml-cpp-${yaml-cppVer}
     )
 
 set(ThirdPartyNames ${ThirdPartyNames} yaml-cpp-${yaml-cppVer})
-if (NOT EXISTS ${yaml-cppRootDir}/src/yaml-cpp-${yaml-cppVer})
-    add_custom_target(rescan-yaml-cpp ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS yaml-cpp-${yaml-cppVer})
-else()
-    add_custom_target(rescan-yaml-cpp)
-endif()
+# if (NOT EXISTS ${yaml-cppRootDir}/src/yaml-cpp-${yaml-cppVer})
+#     add_custom_target(rescan-yaml-cpp ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS yaml-cpp-${yaml-cppVer})
+# else()
+#     add_custom_target(rescan-yaml-cpp)
+# endif()

@@ -6,7 +6,7 @@ set(spdlogUrlHash SHA256=4dccf2d10f410c1e2feaff89966bfc49a1abb29ef6f08246335b110
 
 set(spdlogRootDir ${ThirdPartyDir}/spdlog)
 set(spdlogIncludeDir ${spdlogRootDir}/src/spdlog-${spdlogVer}/include)
-set(spdlogLibDir ${spdlogRootDir}/src/spdlog-${spdlogVer}-build)
+set(spdlogLibDir ${spdlogRootDir}/src/spdlog-${spdlogVer}/build)
 
 set(spdlogUrl https://github.com/gabime/spdlog/archive/refs/tags/v${spdlogVer}.tar.gz)
 set(spdlogConfigure cd ../spdlog-${spdlogVer} && mkdir build && cd build && cmake ..)
@@ -24,8 +24,8 @@ ExternalProject_Add(spdlog-${spdlogVer}
     )
 
 set(ThirdPartyNames ${ThirdPartyNames} spdlog-${spdlogVer})
-if (NOT EXISTS ${spdlogRootDir}/src/spdlog-${spdlogVer})
-    add_custom_target(rescan-spdlog ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS spdlog-${spdlogVer})
-else()
-    add_custom_target(rescan-spdlog)
-endif()
+# if (NOT EXISTS ${spdlogRootDir}/src/spdlog-${spdlogVer})
+#     add_custom_target(rescan-spdlog ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS spdlog-${spdlogVer})
+# else()
+#     add_custom_target(rescan-spdlog)
+# endif()

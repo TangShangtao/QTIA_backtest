@@ -6,7 +6,7 @@ set(fmtUrlHash SHA256=78b8c0a72b1c35e4443a7e308df52498252d1cefc2b08c9a97bc9ee6cf
 
 set(fmtRootDir ${ThirdPartyDir}/fmt)
 set(fmtIncludeDir ${fmtRootDir}/src/fmt-${fmtVer}/include)
-set(fmtLibDir ${fmtRootDir}/src/fmt-${fmtVer}-build)
+set(fmtLibDir ${fmtRootDir}/src/fmt-${fmtVer}/build)
 
 set(fmtUrl https://github.com/fmtlib/fmt/archive/refs/tags/${fmtVer}.tar.gz)
 set(fmtConfigure cd ../fmt-${fmtVer} && mkdir build && cd build && cmake ..)
@@ -24,8 +24,8 @@ ExternalProject_Add(fmt-${fmtVer}
     )
 
 set(ThirdPartyNames ${ThirdPartyNames} fmt-${fmtVer})
-if (NOT EXISTS ${fmtRootDir}/src/fmt-${fmtVer})
-    add_custom_target(rescan-fmt ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS fmt-${fmtVer})
-else()
-    add_custom_target(rescan-fmt)
-endif()
+# if (NOT EXISTS ${fmtRootDir}/src/fmt-${fmtVer})
+#     add_custom_target(rescan-fmt ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS fmt-${fmtVer})
+# else()
+#     add_custom_target(rescan-fmt)
+# endif()
