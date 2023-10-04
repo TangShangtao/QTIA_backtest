@@ -3,7 +3,7 @@ queueSize:              10000
 backingThreadsCount:    1
 maxFiles:               10
 maxSize:                104857600
-outputDir:              "bin/logs/"
+outputDir:              "logs/"
 outputFilename:         "backtest001"
 rotatingSinkPattern:    "[%Y%m%d %T.%f] [%L] [%t] [%s:%#] %v"
 stdoutSinkPattern:      "[%Y%m%d %T.%f] [%^%L%$] [%t] [%s:%#] %v"

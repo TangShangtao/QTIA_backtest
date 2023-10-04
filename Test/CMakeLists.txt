@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.27)
 
 project(Test C CXX)
 
@@ -15,7 +15,7 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC "${yaml-cppIncludeDir}"
 )
 target_link_directories(${PROJECT_NAME}
-    PUBLIC "../lib"
+    PUBLIC ../lib
     PUBLIC "${fmtLibDir}"
     PUBLIC "${spdlogLibDir}"
     PUBLIC "${yaml-cppLibDir}"
