@@ -2,4 +2,5 @@
 .idea/
 bin/
 build/
+lib/
 ThirdParty/

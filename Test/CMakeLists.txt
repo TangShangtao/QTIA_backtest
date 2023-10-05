@@ -1,29 +1,21 @@
 cmake_minimum_required(VERSION 3.27)
 
 project(Test C CXX)
+set(ProjRootDir ${SolutionRootDir}/Test/)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(Test ${ProjRootDir}/main.cpp)
 
 #依赖--头文件、库文件
-add_dependencies(${PROJECT_NAME} ${ThirdPartyNames})
-message(STATUS "ThirdPartyNames ${ThirdPartyNames}")
-target_include_directories(${PROJECT_NAME}
-    PUBLIC "../Public/Include"
-    PUBLIC "../ToolKit/Include"
-    PUBLIC "${fmtIncludeDir}"
-    PUBLIC "${spdlogIncludeDir}"
-    PUBLIC "${yaml-cppIncludeDir}"
+add_dependencies(Test ${ThirdPartyNames})
+target_include_directories(Test
+    PUBLIC "${SolutionRootDir}/Public/Include"
+    PUBLIC "${SolutionRootDir}/ToolKit/Include"
+    PUBLIC "${ThirdPartyIncDir}"
 )
-target_link_directories(${PROJECT_NAME}
-    PUBLIC ../lib
-    PUBLIC "${fmtLibDir}"
-    PUBLIC "${spdlogLibDir}"
-    PUBLIC "${yaml-cppLibDir}"
+target_link_directories(Test
+    PUBLIC "${ThirdPartyLnkDir}"
+    PUBLIC "${QTIA_LnkDir}"
 )
-target_link_libraries(${PROJECT_NAME}
-    PUBLIC libfmt.a
-    PUBLIC libyaml-cpp.a
-    PUBLIC libspdlog.a
-    PUBLIC dl
-    PUBLIC pthread
+target_link_libraries(Test
+    PUBLIC ToolKit
 )
