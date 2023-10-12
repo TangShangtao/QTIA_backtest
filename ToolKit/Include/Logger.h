@@ -14,8 +14,14 @@ namespace QB
 {
 namespace ToolKit
 {
-int InitLogger(const YAML::Node& config);
-int InitLogger(const std::string& configFilePath);
+class Logger
+{
+public:
+    static int Init(const YAML::Node& config);
+    static int Init(const std::string& configFilePath);
+
+};
+
 };
 };
 

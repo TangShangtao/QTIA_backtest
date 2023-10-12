@@ -34,3 +34,4 @@ set(QTIA_ExeDir ${EXECUTABLE_OUTPUT_PATH})
 # 子项目
 add_subdirectory(Test)
 add_subdirectory(ToolKit)
+add_subdirectory(Replayer)

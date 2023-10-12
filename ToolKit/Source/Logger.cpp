@@ -4,7 +4,7 @@ namespace QB
 {
 namespace ToolKit
 {
-int InitLogger(const YAML::Node& config)
+int Logger::Init(const YAML::Node& config)
 {
     try
     {
@@ -61,7 +61,7 @@ int InitLogger(const YAML::Node& config)
     
 }
 
-int InitLogger(const std::string& configFilePath)
+int Logger::Init(const std::string& configFilePath)
 {
     YAML::Node config;
     try
@@ -75,7 +75,7 @@ int InitLogger(const std::string& configFilePath)
                   << std::endl;
         return -1;
     }
-    return InitLogger(config);
+    return Init(config);
 }
 };
 };

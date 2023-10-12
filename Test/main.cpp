@@ -3,6 +3,6 @@
 using namespace QB;
 int main()
 {
-    ToolKit::InitLogger("./config/logger.yaml");
+    ToolKit::Logger::Init("./config/logger.yaml");
     INFO("hello world");
 }
