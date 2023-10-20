@@ -22,8 +22,8 @@ set(fmtIncludeDir ${fmtRootDir}/src/fmt-${fmtVer}/include)
 set(fmtLibDir ${fmtRootDir}/src/fmt-${fmtVer}/build)
 
 set(ThirdPartyNames ${ThirdPartyNames} fmt-${fmtVer})
-set(ThirdPartyIncDir ${fmtIncludeDir})
-set(ThirdPartyLnkDir ${fmtLibDir})
+set(ThirdPartyIncDir ${ThirdPartyIncDir} ${fmtIncludeDir})
+set(ThirdPartyLnkDir ${ThirdPartyLnkDir} ${fmtLibDir})
 
 # if (NOT EXISTS ${fmtRootDir}/src/fmt-${fmtVer})
 #     add_custom_target(rescan-fmt ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR} DEPENDS fmt-${fmtVer})

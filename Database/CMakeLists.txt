@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(Replayer C CXX)
-set(ProjRootDir ${SolutionRootDir}/Replayer/)
+project(Database C CXX)
+set(ProjRootDir ${SolutionRootDir}/Database/)
 aux_source_directory(${ProjRootDir}/Source src)
-add_library(Replayer STATIC ${src})
+add_library(Database STATIC ${src})
 
 #依赖--头文件、库文件
-add_dependencies(Replayer ${ThirdPartyNames})
-target_include_directories(Replayer
+add_dependencies(Database ${ThirdPartyNames})
+target_include_directories(Database
     PUBLIC "${SolutionRootDir}/Public/Include"
     PUBLIC "${SolutionRootDir}/ToolKit/Include"
     PUBLIC "${ThirdPartyIncDir}"
     PUBLIC "${ProjRootDir}/Include"
-    PUBLIC "${SolutionRootDir}/Database/Include"
 )
 target_link_directories(Replayer
     PUBLIC "${ThirdPartyLnkDir}"
@@ -20,5 +19,4 @@ target_link_directories(Replayer
 )
 target_link_libraries(Replayer
     PUBLIC ToolKit
-    PUBLIC Database
 )

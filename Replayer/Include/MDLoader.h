@@ -19,21 +19,30 @@ namespace Replayer
 
 class MDLoader
 {
+friend class EventPublisher;
 private:
-    std::atomic_bool keepRunning{false};
-    std::unique_ptr<std::thread> loadMDThread{nullptr};
-    std::unique_ptr<MDCache> mdCache_;
+    std::atomic_bool keepRunning_{false};
+    std::unique_ptr<std::thread> loadMDThread_{nullptr};
+    std::shared_ptr<MDCache> mdCache_;
+
     DeltaSecs oneBatchSecs_;
-    TimeStamp exchTsStart_;
-    TimeStamp exchTsEnd_;
-    TimeStamp localTsStart_;
-    TimeStamp localTsEnd_;
+    std::size_t maxBatchInCache_;
+    DeltaMilliSecs loadIntervalMs_;
+    TimeStamp startTs_;
+    TimeStamp endTs_;
     TimeStamp currBacthStartTs_;
+    
+    MDType mdType_;
+public:
+    std::atomic_bool LoadOver;
+    
 public:
     int     Init(const YAML::Node& config);
     void    Run();
     void    Stop();
-
+private:
+    void    Loading();
+    void    LoadOneBatch();
 
 public:
     MDLoader(const MDLoader&) = delete;

@@ -4,7 +4,6 @@
 #include "Constant/Constexpr.h"
 #include "Constant/Using.h"
 
-
 #include "DataStructure/MarketData.h"
 #include "DataStructure/Order.h"
 #include "DataStructure/Position.h"

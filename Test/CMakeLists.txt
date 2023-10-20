@@ -7,6 +7,7 @@ add_executable(Test ${ProjRootDir}/main.cpp)
 
 #依赖--头文件、库文件
 add_dependencies(Test ${ThirdPartyNames})
+# message(${ThirdPartyIncDir})
 target_include_directories(Test
     PUBLIC "${SolutionRootDir}/Public/Include"
     PUBLIC "${SolutionRootDir}/ToolKit/Include"

@@ -18,7 +18,7 @@ set(CXX_FLAGS
     -Wextra
     -Werror
     -march=native
-    -std=c++14
+    -std=c++17
     )
 string(REPLACE ";" " " CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 set(CMAKE_CXX_FLAGES_DEBUG "-O0 -fPIC")

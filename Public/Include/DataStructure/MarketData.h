@@ -36,7 +36,7 @@ public:
     double   price_;
     double   volume_;
 };
-using IOBSptr = std::shared_ptr<IncrementalOrderBookL2>;
+using IOBSPtr = std::shared_ptr<IncrementalOrderBookL2>;
 using IOBUPtr = std::unique_ptr<IncrementalOrderBookL2>;
 
 struct Depth
@@ -49,7 +49,7 @@ struct Depth
 class OrderBookSnapShots
 {
 public:
-    MDHeader                           mdHeader_;
+    MDHeader mdHeader_;
     std::array<Depth, MAX_DEPTH_LEVEL> asks_;
     std::array<Depth, MAX_DEPTH_LEVEL> bids_;
 

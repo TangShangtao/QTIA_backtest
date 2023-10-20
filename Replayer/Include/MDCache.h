@@ -33,7 +33,8 @@ public:
 
 public:
     std::shared_ptr<TsMDBatchSPtrMap> pop();
-
+    bool emplace_back();
+    std::size_t BatchNumInCache();
 
 };
 };

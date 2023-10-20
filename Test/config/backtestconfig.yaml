@@ -1,17 +1,23 @@
 backtest:
     replayer:
-        oneBatchSecs:   60                          # 每次缓存多少秒行情
-        apiconfig_path: ./Common/apiconfig.json
-        start:          2020-10-10T09:00:00+08:00   # 回测开始时间, ISODatetime
-        end:            2020-10-11T09:00:00+08:00   # 回测结束时间, ISODatetime
-        format:         parquet
-        path:           ./Storage
+        oneBatchSecs:    60                          # 每批次缓存多少秒行情
+        maxBatchInCache: 5                           # 内存中最多有多少批次行情
+        loadIntervalMs:  10                          # 每过多少毫秒加载一次行情缓存
+        start:           2020-10-10T09:00:00+08:00   # 回测开始时间, ISODatetime
+        end:             2020-10-11T09:00:00+08:00   # 回测结束时间, ISODatetime
+        MDType:          IncrementalOrderBookL2
+        # apiconfig_path: ./Common/apiconfig.json
+        # format:         parquet
+        # path:           ./Storage
     match:
         name:           sampleMatch   
         slippage:       1
     strategy:
         name:           sampleStrategy 
         symbols:        ["BTC.USDT"]
+    db:
+        name:           ClickHouse
+        addr:           127.0.0.1:9999
 
 logger:
     loggerName:             default_logger
