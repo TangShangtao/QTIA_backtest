@@ -1,4 +1,4 @@
-#include "EventPublisher.h"
+#include "MDPublisher.h"
 #include "Logger.h"
 
 namespace QB
@@ -8,28 +8,28 @@ using namespace ToolKit;
 namespace Replayer
 {
 
-void EventPublisher::Register(SubscriberSPtr Subscriber)
+void MDPublisher::Register(MDSubscriberSPtr MDSubscriber)
 {
-    subscribers_.emplace(Subscriber);
+    MDSubscribers_.emplace(MDSubscriber);
 }
 
-int EventPublisher::Init(std::shared_ptr<MDLoader> loader)
+int MDPublisher::Init(std::shared_ptr<MDLoader> loader)
 {
     loader_ = loader;
     consumeMDThread_ = std::make_unique<std::thread>([this] {Publishing();});
-    for (auto it : subscribers_)
+    for (auto it : MDSubscribers_)
     {
         it->OnBacktestInit();
     }
     return 0; 
 }
 
-void EventPublisher::Run()
+void MDPublisher::Run()
 {
     keepRunning_.store(true);
 }
 
-void EventPublisher::Stop()
+void MDPublisher::Stop()
 {
     keepRunning_.store(false);
     if (consumeMDThread_->joinable())
@@ -38,9 +38,9 @@ void EventPublisher::Stop()
     }
 }
 
-void EventPublisher::Publishing()
+void MDPublisher::Publishing()
 {
-    for (auto it : subscribers_)
+    for (auto it : MDSubscribers_)
     {
         it->OnBacktestStart();
     }
@@ -63,14 +63,14 @@ void EventPublisher::Publishing()
         // 缓存未空
         PublishOneBatch();
     }
-    for (auto it : subscribers_)
+    for (auto it : MDSubscribers_)
     {
         it->OnBacktestEnd();
     }
 
 }
 
-void EventPublisher::PublishOneBatch()
+void MDPublisher::PublishOneBatch()
 {
 
 }

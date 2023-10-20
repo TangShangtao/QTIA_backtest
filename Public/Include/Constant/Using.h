@@ -12,5 +12,5 @@ using DeltaSecs = std::uint32_t;
 using ISODatetime = std::string;            // ISO时间(配置文件中使用, 格式:2020-10-10T09:00:00+08:00)
 using OrderRef = std::uint64_t;
 using OrderSysID = std::string;
-
+using TradeID = std::string;
 };

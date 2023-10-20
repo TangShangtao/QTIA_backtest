@@ -9,9 +9,9 @@ namespace QB
 class Asset
 {
 public:
-    double balance_;
-    double marketValue_;
-    double available_;
+    double balance;
+    double marketValue;
+    double available;
 
 };
 

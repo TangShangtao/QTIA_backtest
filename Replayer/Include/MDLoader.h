@@ -19,7 +19,7 @@ namespace Replayer
 
 class MDLoader
 {
-friend class EventPublisher;
+friend class MDPublisher;
 private:
     std::atomic_bool keepRunning_{false};
     std::unique_ptr<std::thread> loadMDThread_{nullptr};

@@ -6,6 +6,7 @@
 
 #include "DataStructure/MarketData.h"
 #include "DataStructure/Order.h"
+#include "DataStructure/Trade.h"
 #include "DataStructure/Position.h"
 #include "DataStructure/Symbol.h"
 #include "DataStructure/Asset.h"

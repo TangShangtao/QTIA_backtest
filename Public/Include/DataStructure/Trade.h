@@ -1,19 +1,19 @@
-#pragma once
-
 #include "Constant/Enum.h"
 #include "Constant/Using.h"
 
 #include <string>
 #include <memory>
 
+
 namespace QB
 {
 
-class Order
+class Trade
 {
 public:
     OrderRef     orderRef;         // 内部订单ID
     OrderSysID   orderSysID;       // 模拟交易所订单ID
+    TradeID      tradeID;
 
     ExchangeType exchange;         // 交易所
     std::string  symbol;           // 合约名
@@ -31,11 +31,6 @@ public:
 
     double       unfilledVolume;   // 未成交数量
     OrderStatus  status;           // 订单状态
-
-
 };
-using OrderSPtr = std::shared_ptr<Order>;
-using OrderUPtr = std::unique_ptr<Order>;
-
 
 };

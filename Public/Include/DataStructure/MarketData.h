@@ -14,14 +14,14 @@ namespace QB
 class MDHeader
 {
 public:
-    ExchangeType exchange_;
-    SymbolType   symbolType_;
-    std::string  symbol_;
+    ExchangeType exchange;
+    SymbolType   symbolType;
+    std::string  symbol;
 
-    TimeStamp    ts_;
-    TimeStamp    localTs_;
+    TimeStamp    ts;
+    TimeStamp    localTs;
     
-    MDType       mdType_;
+    MDType       mdType;
     // std::string  toStr() const;
     // std::string  getTopicPrefix() const;
     // std::string  toJson() const;
@@ -30,28 +30,28 @@ public:
 class IncrementalOrderBookL2
 {
 public:
-    MDHeader mdHeader_;
+    MDHeader mdHeader;
     // bool isSnapShot_;
-    SideType side_;
-    double   price_;
-    double   volume_;
+    SideType side;
+    double   price;
+    double   volume;
 };
 using IOBSPtr = std::shared_ptr<IncrementalOrderBookL2>;
 using IOBUPtr = std::unique_ptr<IncrementalOrderBookL2>;
 
 struct Depth
 {
-    double price_;
-    double volume_;
-    std::uint32_t level_;
+    double price;
+    double volume;
+    std::uint32_t level;
 };
 
 class OrderBookSnapShots
 {
 public:
     MDHeader mdHeader_;
-    std::array<Depth, MAX_DEPTH_LEVEL> asks_;
-    std::array<Depth, MAX_DEPTH_LEVEL> bids_;
+    std::array<Depth, MAX_DEPTH_LEVEL> asks;
+    std::array<Depth, MAX_DEPTH_LEVEL> bids;
 
 };
 using OBSSptr = std::shared_ptr<OrderBookSnapShots>;

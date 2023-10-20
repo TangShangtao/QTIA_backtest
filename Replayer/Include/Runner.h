@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EventPublisher.h"
+#include "MDPublisher.h"
 // #include "MDCache.h"
 #include "MDLoader.h"
 
@@ -14,7 +14,7 @@ namespace Replayer
 class Runner
 {
 private:
-    std::shared_ptr<EventPublisher> publisher_;
+    std::shared_ptr<MDPublisher> publisher_;
     std::shared_ptr<MDCache> mdCache_;
     std::shared_ptr<MDLoader> loader_;
 
@@ -24,9 +24,9 @@ public:
         loader_->Init(config);
         publisher_->Init(loader_);
     }
-    void Register(SubscriberSPtr Subscriber)
+    void Register(MDSubscriberSPtr MDSubscriber)
     {
-        publisher_->Register(Subscriber);
+        publisher_->Register(MDSubscriber);
     }
     void Run()
     {

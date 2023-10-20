@@ -15,17 +15,17 @@ namespace QB
 namespace Replayer
 {
 
-class EventPublisher
+class MDPublisher
 {
 private:
     std::atomic_bool keepRunning_{false};
     std::unique_ptr<std::thread> consumeMDThread_{nullptr};
     std::shared_ptr<MDCache> mdCache_;
     std::shared_ptr<MDLoader> loader_;
-    std::unordered_set<SubscriberSPtr> subscribers_;
+    std::unordered_set<MDSubscriberSPtr> MDSubscribers_;
 
 public:
-    void    Register(SubscriberSPtr Subscriber);   // Register在Init前被调用
+    void    Register(MDSubscriberSPtr MDSubscriber);   // Register在Init前被调用
 
     int     Init(std::shared_ptr<MDLoader> loader);
 
@@ -35,12 +35,12 @@ private:
     void    Publishing();
     void    PublishOneBatch();
 public:
-    EventPublisher(const EventPublisher&) = delete;
-    EventPublisher& operator=(const EventPublisher&) = delete;
-    EventPublisher(const EventPublisher&&) = delete;
-    EventPublisher& operator=(const EventPublisher&&) = delete;
+    MDPublisher(const MDPublisher&) = delete;
+    MDPublisher& operator=(const MDPublisher&) = delete;
+    MDPublisher(const MDPublisher&&) = delete;
+    MDPublisher& operator=(const MDPublisher&&) = delete;
 
-    explicit EventPublisher() {}
+    explicit MDPublisher() {}
 
 };
 

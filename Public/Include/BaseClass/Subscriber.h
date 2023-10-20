@@ -10,7 +10,7 @@
 namespace QB
 {
 
-class Subscriber
+class MDSubscriber
 {
 public:
     virtual void OnBacktestInit() = 0;
@@ -18,9 +18,18 @@ public:
     virtual void OnBacktestStart() = 0;
     virtual void OnBacktestEnd() = 0;
     
-    virtual void OnMarketDataUpdate(IOBSPtr marketData) {};
-    virtual void OnMarketDataUpdate(OBSSptr marketData) {};
+    virtual void OnMDUpdate(IOBSPtr marketData) {};
+    virtual void OnMDUpdate(OBSSptr marketData) {};
 };
-using SubscriberSPtr = std::shared_ptr<Subscriber>;
-using SubscriberUPtr = std::unique_ptr<Subscriber>;
+using MDSubscriberSPtr = std::shared_ptr<MDSubscriber>;
+using MDSubscriberUPtr = std::unique_ptr<MDSubscriber>;
+
+
+class TradeSubscriber
+{
+public:
+    virtual void OnRtnOrder(Order order) {};
+    virtual void OnRtnTrade(Trade trade) {};
+};
+
 };
