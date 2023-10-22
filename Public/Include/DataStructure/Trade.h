@@ -32,5 +32,7 @@ public:
     double       unfilledVolume;   // 未成交数量
     OrderStatus  status;           // 订单状态
 };
+using TradeSPtr = std::shared_ptr<Trade>;
+using TradeUPtr = std::unique_ptr<Trade>;
 
 };

@@ -54,7 +54,7 @@ public:
     std::array<Depth, MAX_DEPTH_LEVEL> bids;
 
 };
-using OBSSptr = std::shared_ptr<OrderBookSnapShots>;
+using OBSSPtr = std::shared_ptr<OrderBookSnapShots>;
 using OBSUPtr = std::unique_ptr<OrderBookSnapShots>;
 
 };

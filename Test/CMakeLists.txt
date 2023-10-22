@@ -12,6 +12,7 @@ target_include_directories(Test
     PUBLIC "${SolutionRootDir}/Public/Include"
     PUBLIC "${SolutionRootDir}/ToolKit/Include"
     PUBLIC "${ThirdPartyIncDir}"
+    PUBLIC "${SolutionRootDir}"
 )
 target_link_directories(Test
     PUBLIC "${ThirdPartyLnkDir}"

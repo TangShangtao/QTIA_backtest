@@ -12,7 +12,7 @@ target_include_directories(Replayer
     PUBLIC "${SolutionRootDir}/ToolKit/Include"
     PUBLIC "${ThirdPartyIncDir}"
     PUBLIC "${ProjRootDir}/Include"
-    PUBLIC "${SolutionRootDir}/Database/Include"
+    PUBLIC "${SolutionRootDir}"
 )
 target_link_directories(Replayer
     PUBLIC "${ThirdPartyLnkDir}"
@@ -20,5 +20,4 @@ target_link_directories(Replayer
 )
 target_link_libraries(Replayer
     PUBLIC ToolKit
-    PUBLIC Database
 )

@@ -20,6 +20,7 @@ ExternalProject_Add(arrow-${arrowVer}
 
 set(arrowIncludeDir ${arrowRootDir}/src/arrow-${arrowVer}/cpp/src)
 set(arrowLibDir ${arrowRootDir}/src/arrow-${arrowVer}/cpp/build/release)
+configure_file(${arrowRootDir}/src/arrow-${arrowVer}/cpp/src/parquet/parquet_version.h.in ${arrowRootDir}/src/arrow-${arrowVer}/cpp/src/parquet/parquet_version.h @ONLY)
 
 set(ThirdPartyNames ${ThirdPartyNames} arrow-${arrowVer})
 set(ThirdPartyIncDir ${ThirdPartyIncDir} ${arrowIncludeDir})

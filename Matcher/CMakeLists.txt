@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(Strategy C CXX)
-set(ProjRootDir ${SolutionRootDir}/Strategy)
+project(Matcher C CXX)
+set(ProjRootDir ${SolutionRootDir}/Matcher)
 
 aux_source_directory(${ProjRootDir}/Source src)
-add_library(Strategy STATIC ${src})
+add_library(Matcher STATIC ${src})
 
 #依赖--头文件、库文件
-add_dependencies(Strategy ${ThirdPartyNames})
-# message("${ProjRootDir}/Include")
-target_include_directories(Strategy
+add_dependencies(Matcher ${ThirdPartyNames})
+# message(${ProjRootDir}/Include)
+target_include_directories(Matcher
     PUBLIC "${SolutionRootDir}/Public/Include"
     PUBLIC "${SolutionRootDir}/ToolKit/Include"
     PUBLIC "${ThirdPartyIncDir}"
@@ -17,10 +17,10 @@ target_include_directories(Strategy
     PUBLIC "${SolutionRootDir}"
 
 )
-target_link_directories(Strategy
+target_link_directories(Matcher
     PUBLIC "${ThirdPartyLnkDir}"
     PUBLIC "${QTIA_LnkDir}"
 )
-target_link_libraries(Strategy
+target_link_libraries(Matcher
     PUBLIC ToolKit
 )
