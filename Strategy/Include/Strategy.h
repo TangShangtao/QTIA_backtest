@@ -31,9 +31,9 @@ class StrategyApi
 {
 public:
     static StrategyApi* CreateApi();
-    virtual bool SubscribeMD(const std::string symbol);
-    virtual OrderRef OrderInsert(Order order);
-    virtual bool OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
+    virtual bool SubscribeMD(const std::string symbol) {};
+    virtual OrderRef OrderInsert(Order order) {};
+    virtual bool OrderCancel(OrderSysID orderSysID, OrderRef orderRef) {};
 
 };
 using QBApi = std::shared_ptr<StrategyApi>;

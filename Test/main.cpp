@@ -1,6 +1,7 @@
-// #include "Logger.h"
-// using namespace QB;
-#include <clickhouse/client.h>
+#include "Logger.h"
+#include "arrow/api.h"
+
+using namespace QB;
 
 int main()
 {
