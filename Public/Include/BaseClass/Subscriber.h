@@ -18,7 +18,7 @@ public:
     virtual void OnBacktestStart() = 0;
     virtual void OnBacktestEnd() = 0;
     
-    virtual void OnMDUpdate(IOBSPtr marketData) {};
+    // virtual void OnMDUpdate(IOBSPtr marketData) {};
     virtual void OnMDUpdate(OBSSPtr marketData) {};
 };
 using MDSubscriberSPtr = std::shared_ptr<MDSubscriber>;

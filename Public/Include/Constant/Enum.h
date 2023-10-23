@@ -8,26 +8,14 @@ namespace QB
 // enum
 enum class ExchangeType : std::uint16_t
 {
-  Okex,
-  Binance,
-  Coinbase,
-  Kraken,
-
-  QBExchange,
-  Others = UINT16_MAX - 1
+    Binance,
+    Others = UINT16_MAX - 1
 };
 
 enum class SymbolType : std::uint8_t
 {
-  Spot,
-  Futures,
-  CFutures,
-  Perp,
-  CPerp,
-  Option,
-  index,
-
-  Others = UINT8_MAX - 1
+    BTCUSDT,
+    Others = UINT8_MAX - 1
 };
 
 enum class CurrencyType : std::uint8_t

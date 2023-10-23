@@ -12,6 +12,17 @@ namespace QB
 namespace Strategy
 {
 
+class StrategyApi
+{
+public:
+    bool SubscribeMD(const std::string symbol);
+    OrderRef OrderInsert(OrderSPtr order);
+    void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
+private:
+    std::shared_ptr<OrdMgr> ordMgr_;
+};
+using QBApi = std::shared_ptr<StrategyApi>;
+
 class StrategyBase : MDSubscriber, TradeSubscriber
 {
 public:
@@ -31,21 +42,10 @@ protected:
     QBApi api_;
 };
 
-class StrategyApi
-{
-public:
-    bool SubscribeMD(const std::string symbol);
-    OrderRef OrderInsert(OrderSPtr order);
-    void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
-private:
-    std::shared_ptr<OrdMgr> ordMgr_;
 };
-using QBApi = std::shared_ptr<StrategyApi>;
-
-
 };
 
 
 
-};
+
 

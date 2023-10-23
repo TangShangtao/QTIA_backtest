@@ -19,8 +19,8 @@ target_link_libraries(ToolKit
     PUBLIC libfmt.a
     PUBLIC libyaml-cpp.a
     PUBLIC libspdlog.a
-    PUBLIC libarrow.a
-    PUBLIC libarrow_bundled_dependencies.a
+    # PUBLIC libarrow.a
+    # PUBLIC libarrow_bundled_dependencies.a
     PUBLIC dl
     PUBLIC pthread
 )
