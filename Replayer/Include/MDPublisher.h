@@ -27,7 +27,7 @@ private:
 public:
     void    Register(MDSubscriberSPtr MDSubscriber);   // Register在Init前被调用
 
-    int     Init(std::shared_ptr<MDLoader> loader);
+    int     Init(std::shared_ptr<MDLoader> loader, std::shared_ptr<MDCache> cache);
 
     void    Run();
     void    Stop();

@@ -26,18 +26,18 @@ using QBApi = std::shared_ptr<StrategyApi>;
 class StrategyBase : MDSubscriber, TradeSubscriber
 {
 public:
-    virtual void OnBacktestInit() override {};
+    virtual void OnBacktestInit() = 0;
 
-    virtual void OnBacktestStart() override {};
-    virtual void OnBacktestEnd() override {};
+    virtual void OnBacktestStart() = 0;
+    virtual void OnBacktestEnd() = 0;
     
     // virtual void OnMDUpdate(IOBSPtr marketData) override {};
-    virtual void OnMDUpdate(OBSSPtr marketData) override {};
+    virtual void OnMDUpdate(OBSSPtr marketData) = 0;
 
 public:
 
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) override {};
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) override {};
+    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) = 0;
+    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) = 0;
 protected:
     QBApi api_;
 };

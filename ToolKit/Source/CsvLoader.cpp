@@ -16,7 +16,6 @@ bool CsvLoader::LoadFile(const std::string& Path)
     }
     std::getline(ifs_, buf_);
     Column = split(buf_);
-    NextRow();
     return true;
 }
 
@@ -62,7 +61,6 @@ OBSSPtr CsvLoader::ToOrderbookSnapshort()
         );
     }
     return data;
-
 }
 
 

@@ -1,6 +1,6 @@
 #include "MDLoader.h"
 #include "Logger.h"
-#include "TimeUtils.h"
+// #include "TimeUtils.h"
 #include "Protocol.h"
 
 #include <magic_enum.hpp>
@@ -12,35 +12,17 @@ using namespace ToolKit;
 namespace Replayer
 {
 
-int MDLoader::Init(const YAML::Node& config)
+int MDLoader::Init(const YAML::Node& config, std::shared_ptr<MDCache> cache)
 {
-    oneBatchSecs_ = config["oneBatchSecs"].as<DeltaSecs>(60);
-    if (oneBatchSecs_ > MAX_ONE_BATCH_SECS)
-    {
-        ERROR("load a batch of MD failed, \
-        reason: oneBatchSecs > max one batch secs({})", MAX_ONE_BATCH_SECS);
-        return -1;
-    }
-    maxBatchInCache_ = config["maxBatchInCache"].as<DeltaSecs>(0);
+    mdCache_ = cache;
+    oneBatchLines_ = config["oneBatchLines"].as<uint32_t>(60);
+    maxBatchInCache_ = config["maxBatchInCache"].as<uint32_t>(0);
     loadIntervalMs_ = config["loadIntervalMs"].as<DeltaMilliSecs>(0);
-    if (maxBatchInCache_ == 0 || loadIntervalMs_ == 0)
-    {
-        ERROR("load a batch of MD failed, \
-        reason: invaild maxBatchInCache({}) loadInterval({})", maxBatchInCache_, loadIntervalMs_);
-    }
-    startTs_ = TimeUtils::ISO2TS(config["start"].as<ISODatetime>());
-    endTs_ = TimeUtils::ISO2TS(config["end"].as<ISODatetime>());
-    if (startTs_ == 0 || endTs_ == 0)
-    {
-        ERROR("load backtest time range failed, \
-        reason: invaild ISODatetime start({}), end({})", startTs_, endTs_);
-        return -1;
-    }
-    const std::string mdTypeStr = config["MDType"].as<std::string>();
-    mdType_ = magic_enum::enum_cast<MDType>(mdTypeStr).value();
-    currBacthStartTs_ = startTs_;
+    start_ = config["start"].as<DateTime>(0);
+    end_ = config["end"].as<DateTime>(0);
+    path_ = config["path"].as<std::string>();
+    currDate_ = start_;
     loadMDThread_ = std::make_unique<std::thread>([this] {Loading();});
-
     return 0;
 }
 
@@ -63,36 +45,54 @@ void MDLoader::Loading()
     while (keepRunning_.load())
     {
         // 缓存完毕
-        if (currBacthStartTs_ >= endTs_)
+        if (currDate_ > end_)
         {
             INFO("all MD loaded");
             keepRunning_.store(false);
-            LoadOver.store(true);
-            break;
+            LoadOver.store(true);       // 信号量通知
+            return;
         }
+        // 缓存未满
+        LoadOneDay();
+        currDate_++;
+    }
+}
+
+void MDLoader::LoadOneDay()
+{
+    std::string filePath = path_ + "/" + std::to_string(currDate_) + "/";
+    INFO("MDLoader: start load date {}", currDate_);
+    //TODO 
+    std::string filename = "EXCHANGE_BINANCE.BTC-USDT.SECURITY_TYPE_PERP.CONTRACT_TYPE_LINEAR.USDT.UNSPECIFIED_bookSnapshot5_20230101.csv";
+    csvLoader_->LoadFile(filePath + filename);
+    while (LoadOneBatch())
+    {
         std::size_t batchNum = mdCache_->BatchNumInCache();
-        // 缓存已满
         if (batchNum >= maxBatchInCache_)
         {
-            std::this_thread::sleep_for(
+            std::this_thread::sleep_for
+            (
                 std::chrono::milliseconds(loadIntervalMs_)
             );
             continue;
         }
-        // 缓存未满
-        LoadOneBatch();
-        // TODO
     }
 }
 
-void MDLoader::LoadOneBatch()
+bool MDLoader::LoadOneBatch()
 {
-    TimeStamp currBatchEndTs = currBacthStartTs_ + oneBatchSecs_ * 1000;
-    if (currBatchEndTs > endTs_)
+    auto batch = std::make_shared<MDBatch>();
+    for (uint32_t i = 0; i < oneBatchLines_; i++)
     {
-        currBacthStartTs_ = endTs_;
+        if (!csvLoader_->NextRow())
+        {
+            return false;
+        }
+        batch->emplace_back(csvLoader_->ToOrderbookSnapshort());
     }
-    // TODO 从数据库读取一个Batch的数据
+    mdCache_->emplace_back(batch);
+    
+    return true;
 }
 
 

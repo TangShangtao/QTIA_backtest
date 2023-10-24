@@ -10,30 +10,29 @@
 #include <map>
 #include <deque>
 #include <mutex>
+#include <vector>
 namespace QB
 {
 namespace Replayer
 {
-class MDBatch
-{
-public:
-    MDType      mdType_;
-    TimeStamp   localTs_;
-    DeltaMilliSecs   interval_;
-    std::string data_;
-};
-using MDBatchSPtr = std::shared_ptr<MDBatch>;
-using TsMDBatchSPtrMap = std::map<TimeStamp, MDBatchSPtr>;
+
+// template<typename T>
+// class MDBatch
+// {
+// public:
+//     OBSSPtr batch_[T];
+// };
+using MDBatch = std::vector<OBSSPtr>;
 
 class MDCache
 {
 public:
-    std::deque<std::shared_ptr<TsMDBatchSPtrMap>> cache_;
+    std::deque<std::shared_ptr<MDBatch>> cache_;
     std::mutex cacheMutex_;
 
 public:
-    std::shared_ptr<TsMDBatchSPtrMap> pop();
-    bool emplace_back();
+    std::shared_ptr<MDBatch> pop();
+    void emplace_back(std::shared_ptr<MDBatch> batch);
     std::size_t BatchNumInCache();
 
 };

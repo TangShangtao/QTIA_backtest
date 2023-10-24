@@ -19,7 +19,8 @@ public:
     virtual void OnBacktestEnd() = 0;
     
     // virtual void OnMDUpdate(IOBSPtr marketData) {};
-    virtual void OnMDUpdate(OBSSPtr marketData) {};
+    virtual void OnMDUpdate(OBSSPtr marketData) = 0;
+    virtual ~MDSubscriber() {}
 };
 using MDSubscriberSPtr = std::shared_ptr<MDSubscriber>;
 using MDSubscriberUPtr = std::unique_ptr<MDSubscriber>;
@@ -29,8 +30,9 @@ class TradeSubscriber
 {
 public:
     // TODO 改为异步
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) {};
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) {};
+    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) = 0;
+    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) = 0;
+    virtual ~TradeSubscriber() {};
 };
 using TradeSubscriberSPtr = std::shared_ptr<TradeSubscriber>;
 using TradeSubscriberUPtr = std::unique_ptr<TradeSubscriber>;
