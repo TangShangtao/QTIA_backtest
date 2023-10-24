@@ -21,7 +21,7 @@ YAML::Node Load(const std::string& configFilePath)
     }
 }
 
-class TestStra : QB::Strategy::StrategyBase
+class TestStra : public QB::Strategy::StrategyBase
 {
 public:
     virtual void OnBacktestInit() override {std::cout << "Init" << std::endl;};

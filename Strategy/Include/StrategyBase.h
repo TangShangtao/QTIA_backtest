@@ -23,7 +23,7 @@ private:
 };
 using QBApi = std::shared_ptr<StrategyApi>;
 
-class StrategyBase : MDSubscriber, TradeSubscriber
+class StrategyBase : public MDSubscriber, public TradeSubscriber
 {
 public:
     virtual void OnBacktestInit() = 0;
