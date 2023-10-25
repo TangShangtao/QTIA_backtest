@@ -1,11 +1,11 @@
 #include "CsvLoader.h"
 #include "Logger.h"
+#include "StringUtils.h"
 
 namespace QB
 {
 namespace ToolKit
 {
-
 bool CsvLoader::LoadFile(const std::string& Path)
 {
     ifs_ = std::ifstream(Path);
@@ -18,7 +18,7 @@ bool CsvLoader::LoadFile(const std::string& Path)
     Column = split(buf_);
     return true;
 }
-
+// 到eof返回false, 否则返回true
 bool CsvLoader::NextRow()
 {
     if (ifs_.eof()) return false;
@@ -45,9 +45,10 @@ void CsvLoader::CoutCurrentRow()
 OBSSPtr CsvLoader::ToOrderbookSnapshort()
 {
     auto data = std::make_shared<OrderBookSnapShots>();
-    data->symbol = CurrentRow[2];
-    data->ts = std::stoull(CurrentRow[3]);
-    for (int i = 5, j = 0; i <= 21; j++)
+    data->symbol = CurrentRow[2];               // TODO 读空指针bug
+    data->ts = CurrentRow[3];
+    std::cout << data->symbol << std::endl;
+    for (int i = 5, j = 0; i <= 21; j++)    
     {
         data->asks[j] = Depth
         (

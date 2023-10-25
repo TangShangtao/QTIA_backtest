@@ -23,7 +23,8 @@ private:
     std::shared_ptr<MDCache> mdCache_;
     std::shared_ptr<MDLoader> loader_;
     std::unordered_set<MDSubscriberSPtr> MDSubscribers_;
-
+public:
+    ~MDPublisher();
 public:
     void    Register(MDSubscriberSPtr MDSubscriber);   // Register在Init前被调用
 

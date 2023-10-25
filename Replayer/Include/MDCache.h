@@ -31,8 +31,9 @@ public:
     std::mutex cacheMutex_;
 
 public:
-    std::shared_ptr<MDBatch> pop();
-    void emplace_back(std::shared_ptr<MDBatch> batch);
+    void pop();
+    std::shared_ptr<MDBatch> front();
+    void emplace_back(const std::shared_ptr<MDBatch> batch);
     std::size_t BatchNumInCache();
 
 };

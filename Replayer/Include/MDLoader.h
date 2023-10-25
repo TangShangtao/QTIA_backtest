@@ -23,10 +23,11 @@ class MDLoader
 {
 friend class MDPublisher;
 private:
+    std::string filename_;  //测试用
     std::atomic_bool keepRunning_ = false;
     std::unique_ptr<std::thread> loadMDThread_ = nullptr;
     std::shared_ptr<MDCache> mdCache_;
-    std::shared_ptr<ToolKit::CsvLoader> csvLoader_;         // TODO
+    std::shared_ptr<ToolKit::CsvLoader> csvLoader_ = std::make_shared<ToolKit::CsvLoader>();         // TODO
 
     uint32_t oneBatchLines_;
     uint32_t maxBatchInCache_;
@@ -39,7 +40,9 @@ private:
     DateTime currDate_;
 public:
     std::atomic_bool LoadOver;
-    
+
+public:
+    ~MDLoader();
 public:
     int     Init(const YAML::Node& config, std::shared_ptr<MDCache> cache);
     void    Run();

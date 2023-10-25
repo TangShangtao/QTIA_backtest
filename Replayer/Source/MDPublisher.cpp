@@ -7,7 +7,13 @@ using namespace ToolKit;
 
 namespace Replayer
 {
-
+MDPublisher::~MDPublisher()
+{
+    if (consumeMDThread_->joinable())
+    {
+        consumeMDThread_->join();
+    }
+}
 void MDPublisher::Register(MDSubscriberSPtr MDSubscriber)
 {
     MDSubscribers_.emplace(MDSubscriber);
@@ -17,7 +23,6 @@ int MDPublisher::Init(std::shared_ptr<MDLoader> loader, std::shared_ptr<MDCache>
 {
     loader_ = loader;
     mdCache_ = cache;
-    consumeMDThread_ = std::make_unique<std::thread>([this] {Publishing();});
     for (auto subscriber : MDSubscribers_)
     {
         subscriber->OnBacktestInit();
@@ -28,6 +33,7 @@ int MDPublisher::Init(std::shared_ptr<MDLoader> loader, std::shared_ptr<MDCache>
 void MDPublisher::Run()
 {
     keepRunning_.store(true);
+    consumeMDThread_ = std::make_unique<std::thread>([this] {Publishing();});
 }
 
 void MDPublisher::Stop()
@@ -47,16 +53,21 @@ void MDPublisher::Publishing()
     }
     while (keepRunning_.load())
     {
-        std::size_t batchNum = mdCache_->BatchNumInCache();
-        if (batchNum == 0 && (loader_->LoadOver.load() == true))
+        // INFO("MDPublisher: mdCache num {}", mdCache_->BatchNumInCache());
+        if (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == true))
         {
             INFO("all event published");
             keepRunning_.store(false);
+            for (auto subscriber : MDSubscribers_)
+            {
+                subscriber->OnBacktestEnd();
+            }
             return;
         }
         // 缓存已空
-        if (batchNum == 0)
+        while (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == false))
         {
+            INFO("MDPublisher: 缓存已空");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loader_->loadIntervalMs_)
@@ -73,14 +84,20 @@ void MDPublisher::Publishing()
 
 void MDPublisher::PublishOneBatch()
 {
-    auto batch = mdCache_->pop();
-    for (const auto& data : *batch)
+    // INFO("MDPublisher: PublishOneBatch");
+    auto batch = mdCache_->front();
+    if (batch.get() == nullptr)
+    {
+        ERROR("mdCache_.count: {}", mdCache_.use_count());    
+    }
+    for (const auto data : *batch)
     {
         for (auto subscriber : MDSubscribers_)
         {
             subscriber->OnMDUpdate(data);
         }        
     }
+    mdCache_->pop();
 }
 
 };

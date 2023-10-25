@@ -19,16 +19,16 @@ private:
     std::shared_ptr<MDLoader> loader_ = std::make_shared<MDLoader>();
 
 public:
-
+    // Register在Init前调用
+    void Register(MDSubscriberSPtr MDSubscriber)
+    {
+        publisher_->Register(MDSubscriber);
+    }
     int Init(const YAML::Node& config)
     {
         loader_->Init(config, mdCache_);
         publisher_->Init(loader_, mdCache_);
         return 0;
-    }
-    void Register(MDSubscriberSPtr MDSubscriber)
-    {
-        publisher_->Register(MDSubscriber);
     }
     void Run()
     {

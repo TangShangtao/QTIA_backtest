@@ -24,13 +24,14 @@ YAML::Node Load(const std::string& configFilePath)
 class TestStra : public QB::Strategy::StrategyBase
 {
 public:
-    virtual void OnBacktestInit() override {std::cout << "Init" << std::endl;};
+    virtual void OnBacktestInit() override {std::cout << "OnBacktestStart: Init" << std::endl;};
 
-    virtual void OnBacktestStart() override {std::cout << "Start" << std::endl;};
-    virtual void OnBacktestEnd() override {std::cout << "End" << std::endl;};
+    virtual void OnBacktestStart() override {std::cout << "OnBacktestStart: Start" << std::endl;};
+    virtual void OnBacktestEnd() override {std::cout << "OnBacktestStart: End" << std::endl;};
     
     // virtual void OnMDUpdate(IOBSPtr marketData) override {};
-    virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << "Update" << std::endl;};
+    virtual void OnMDUpdate(OBSSPtr marketData) override {};
+    // virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << marketData->ts << std::endl;}
 
 public:
 
@@ -42,8 +43,10 @@ int main()
 {
     auto runner = Runner();
     auto config = Load("./config/backtestconfig.yaml");
+    auto stra = std::make_shared<TestStra>();
+
+    runner.Register(stra);
 
     runner.Init(config["replayer"]);
-    auto stra = std::make_shared<TestStra>();
-    runner.Register(stra);
+    runner.Run();
 }

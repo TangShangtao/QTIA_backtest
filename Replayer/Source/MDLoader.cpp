@@ -12,6 +12,13 @@ using namespace ToolKit;
 namespace Replayer
 {
 
+MDLoader::~MDLoader()
+{
+    if (loadMDThread_->joinable())
+    {
+        loadMDThread_->join();
+    }
+}
 int MDLoader::Init(const YAML::Node& config, std::shared_ptr<MDCache> cache)
 {
     mdCache_ = cache;
@@ -22,13 +29,15 @@ int MDLoader::Init(const YAML::Node& config, std::shared_ptr<MDCache> cache)
     end_ = config["end"].as<DateTime>(0);
     path_ = config["path"].as<std::string>();
     currDate_ = start_;
-    loadMDThread_ = std::make_unique<std::thread>([this] {Loading();});
+    filename_ = config["file"].as<std::string>();
     return 0;
 }
 
 void MDLoader::Run()
 {
     keepRunning_.store(true);
+    loadMDThread_ = std::make_unique<std::thread>([this] {Loading();});
+
 }
 
 void MDLoader::Stop()
@@ -53,6 +62,8 @@ void MDLoader::Loading()
             return;
         }
         // 缓存未满
+
+
         LoadOneDay();
         currDate_++;
     }
@@ -61,20 +72,17 @@ void MDLoader::Loading()
 void MDLoader::LoadOneDay()
 {
     std::string filePath = path_ + "/" + std::to_string(currDate_) + "/";
-    INFO("MDLoader: start load date {}", currDate_);
+    // INFO("MDLoader: start load date {}", currDate_);
     //TODO 
-    std::string filename = "EXCHANGE_BINANCE.BTC-USDT.SECURITY_TYPE_PERP.CONTRACT_TYPE_LINEAR.USDT.UNSPECIFIED_bookSnapshot5_20230101.csv";
-    csvLoader_->LoadFile(filePath + filename);
+    csvLoader_->LoadFile(filePath + filename_);
     while (LoadOneBatch())
     {
-        std::size_t batchNum = mdCache_->BatchNumInCache();
-        if (batchNum >= maxBatchInCache_)
+        while (mdCache_->BatchNumInCache() >= maxBatchInCache_)
         {
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loadIntervalMs_)
             );
-            continue;
         }
     }
 }
@@ -86,12 +94,13 @@ bool MDLoader::LoadOneBatch()
     {
         if (!csvLoader_->NextRow())
         {
+            INFO("meet eof");
             return false;
         }
         batch->emplace_back(csvLoader_->ToOrderbookSnapshort());
     }
     mdCache_->emplace_back(batch);
-    
+    // INFO("MDLoader: mdCache num {}", mdCache_->BatchNumInCache());
     return true;
 }
 
