@@ -27,13 +27,13 @@ using MDBatch = std::vector<OBSSPtr>;
 class MDCache
 {
 public:
-    std::deque<std::shared_ptr<MDBatch>> cache_;
+    std::deque<MDBatch> cache_;
     std::mutex cacheMutex_;
 
 public:
     void pop();
-    std::shared_ptr<MDBatch> front();
-    void emplace_back(const std::shared_ptr<MDBatch> batch);
+    MDBatch front();
+    void emplace_back(const MDBatch batch);
     std::size_t BatchNumInCache();
 
 };

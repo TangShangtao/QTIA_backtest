@@ -89,7 +89,7 @@ void MDLoader::LoadOneDay()
 
 bool MDLoader::LoadOneBatch()
 {
-    auto batch = std::make_shared<MDBatch>();
+    auto batch = MDBatch();
     for (uint32_t i = 0; i < oneBatchLines_; i++)
     {
         if (!csvLoader_->NextRow())
@@ -97,8 +97,9 @@ bool MDLoader::LoadOneBatch()
             INFO("meet eof");
             return false;
         }
-        batch->emplace_back(csvLoader_->ToOrderbookSnapshort());
+        batch.emplace_back(csvLoader_->ToOrderbookSnapshort());
     }
+
     mdCache_->emplace_back(batch);
     // INFO("MDLoader: mdCache num {}", mdCache_->BatchNumInCache());
     return true;

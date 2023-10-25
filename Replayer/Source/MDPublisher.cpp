@@ -86,11 +86,7 @@ void MDPublisher::PublishOneBatch()
 {
     // INFO("MDPublisher: PublishOneBatch");
     auto batch = mdCache_->front();
-    if (batch.get() == nullptr)
-    {
-        ERROR("mdCache_.count: {}", mdCache_.use_count());    
-    }
-    for (const auto data : *batch)
+    for (const auto data : batch)              // TODO 空指针
     {
         for (auto subscriber : MDSubscribers_)
         {
