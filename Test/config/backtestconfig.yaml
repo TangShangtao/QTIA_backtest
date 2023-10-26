@@ -1,11 +1,11 @@
 replayer:
-    oneBatchLines:   60                             # 每批次缓存csv中多少行
-    maxBatchInCache: 5                              # 缓存中最多有多少批次数据
-    loadIntervalMs:  10                             # 每过多少毫秒加载一次行情缓存
+    oneBatchLines:   60000                          # 每批次缓存csv中多少行
+    maxBatchInCache: 50                             # 缓存中最多有多少批次数据
+    loadIntervalMs:  1000                           # 每过多少毫秒加载一次行情缓存
     start:           20230101                       # 回测开始日期
     end:             20230101                       # 回测结束日期
     path:            "/home/tangshangtao/test_data" # 数据根目录
-
+    file:            "test_full.csv"                     # 测试用
 match:
     name:           sampleMatch   
     slippage:       1
