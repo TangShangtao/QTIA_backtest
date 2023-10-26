@@ -1,7 +1,7 @@
 #include "CsvLoader.h"
 #include "Logger.h"
 #include "StringUtils.h"
-
+static int i = 0;
 namespace QB
 {
 namespace ToolKit
@@ -14,50 +14,39 @@ bool CsvLoader::LoadFile(const std::string& Path)
         ERROR("CsvLoader: open file {} failed", Path);
         return false;
     }
-    std::getline(ifs_, buf_);
-    Column = split(buf_);
+    std::getline(ifs_, Column);
     return true;
 }
 // 到eof返回false, 否则返回true
 bool CsvLoader::NextRow()
 {
     if (ifs_.eof()) return false;
-    std::getline(ifs_, buf_);
-    CurrentRow = split(buf_);
+    std::getline(ifs_, CurrentRow);
     return true;
 }
 
-void CsvLoader::CoutColumn()
-{
-    for (const auto& str : Column)
-    {
-        std::cout << str << "," << std::endl;
-    }
-}
-void CsvLoader::CoutCurrentRow()
-{
-    for (const auto& str : CurrentRow)
-    {
-        std::cout << str << "," << std::endl;
-    }    
-}
-
-OBSSPtr CsvLoader::ToOrderbookSnapshort()
+OBSSPtr CsvLoader::ToOrderbookSnapshort()      
 {
     auto data = std::make_shared<OrderBookSnapShots>();
-    data->symbol = CurrentRow[2];               // TODO 读空指针bug
-    data->ts = CurrentRow[3];
+    if (CurrentRow.length() == 0)
+    {
+        return data;
+    }
+    // 1672617599976000
+    const auto fieldVec = split(CurrentRow);
+    data->symbol = fieldVec[2];               // TODO 
+    data->ts = fieldVec[3];
     for (int i = 5, j = 0; i <= 21; j++)    
     {
         data->asks[j] = Depth
         (
-            std::stod(CurrentRow[i++]),
-            std::stod(CurrentRow[i++])
+            std::stod(fieldVec[i++]),
+            std::stod(fieldVec[i++])
         );
         data->bids[j] = Depth
         (
-            std::stod(CurrentRow[i++]),
-            std::stod(CurrentRow[i++])
+            std::stod(fieldVec[i++]),
+            std::stod(fieldVec[i++])
         );
     }
     return data;

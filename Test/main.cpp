@@ -24,14 +24,15 @@ YAML::Node Load(const std::string& configFilePath)
 class TestStra : public QB::Strategy::StrategyBase
 {
 public:
-    virtual void OnBacktestInit() override {std::cout << "OnBacktestStart: Init" << std::endl;};
+    // 1739837
+    virtual void OnBacktestInit() override {std::cout << "OnBacktestStart: Init" << std::endl;}
 
-    virtual void OnBacktestStart() override {std::cout << "OnBacktestStart: Start" << std::endl;};
-    virtual void OnBacktestEnd() override {std::cout << "OnBacktestStart: End" << std::endl;};
+    virtual void OnBacktestStart() override {std::cout << "OnBacktestStart: Start" << std::endl;}
+    virtual void OnBacktestEnd() override {std::cout << "OnBacktestStart: End " << std::endl;}
     
     // virtual void OnMDUpdate(IOBSPtr marketData) override {};
-    virtual void OnMDUpdate(OBSSPtr marketData) override {};
-    // virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << marketData->ts << std::endl;}
+    // virtual void OnMDUpdate(OBSSPtr marketData) override {};
+    virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << marketData->ts << std::endl;}
 
 public:
 

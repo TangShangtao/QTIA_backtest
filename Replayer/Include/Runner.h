@@ -19,6 +19,7 @@ private:
     std::shared_ptr<MDLoader> loader_ = std::make_shared<MDLoader>();
 
 public:
+
     // Register在Init前调用
     void Register(MDSubscriberSPtr MDSubscriber)
     {

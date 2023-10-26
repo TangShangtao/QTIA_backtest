@@ -22,5 +22,6 @@ target_link_libraries(ToolKit
     # PUBLIC libarrow.a
     # PUBLIC libarrow_bundled_dependencies.a
     PUBLIC dl
+    PUBLIC libjemalloc.a
     PUBLIC pthread
 )

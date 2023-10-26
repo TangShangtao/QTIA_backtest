@@ -44,8 +44,8 @@ using IOBUPtr = std::unique_ptr<IncrementalOrderBookL2>;
 class Depth
 {
 public:
-    double Price;
-    double Volume;
+    double Price = 0;
+    double Volume = 0;
     Depth(double price, double volume)
     {
         Price = price;
