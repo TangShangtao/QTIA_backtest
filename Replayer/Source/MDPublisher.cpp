@@ -84,7 +84,7 @@ void MDPublisher::Publishing()
 
 void MDPublisher::PublishOneBatch()
 {
-    // INFO("MDPublisher: PublishOneBatch");
+    INFO("MDLoader: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
     auto batch = mdCache_->front();
     for (const auto data : batch)              // TODO 空指针
     {

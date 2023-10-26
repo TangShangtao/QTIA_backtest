@@ -47,7 +47,6 @@ OBSSPtr CsvLoader::ToOrderbookSnapshort()
     auto data = std::make_shared<OrderBookSnapShots>();
     data->symbol = CurrentRow[2];               // TODO 读空指针bug
     data->ts = CurrentRow[3];
-    std::cout << data->symbol << std::endl;
     for (int i = 5, j = 0; i <= 21; j++)    
     {
         data->asks[j] = Depth

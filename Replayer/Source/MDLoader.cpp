@@ -95,13 +95,14 @@ bool MDLoader::LoadOneBatch()
         if (!csvLoader_->NextRow())
         {
             INFO("meet eof");
+            mdCache_->emplace_back(batch);
             return false;
         }
         batch.emplace_back(csvLoader_->ToOrderbookSnapshort());
     }
 
     mdCache_->emplace_back(batch);
-    // INFO("MDLoader: mdCache num {}", mdCache_->BatchNumInCache());
+    INFO("MDLoader: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
     return true;
 }
 
