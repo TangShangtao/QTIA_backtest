@@ -74,10 +74,10 @@ enum class OrderStatus : std::uint8_t
     // Pending = 5,
     // ConfirmedByExch = 10,
     Queuening,
-    PartialFilled,
-    AllFilled,
+    PartialTraded,
+    AllTraded,
     Canceled,
-    PartialFilledCanceled,
+    PartialTradedCanceled,
 
 };
 

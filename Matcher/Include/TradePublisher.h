@@ -19,6 +19,9 @@ class TradePublisher : MDSubscriber
 protected:
     std::unordered_set<TradeSubscriberSPtr> subscribers_;
     std::shared_ptr<OrderQueue> orderQueue_ = std::make_shared<OrderQueue>(); 
+    uint8_t orderbookLevel_;
+    OrderRef currentTradeID = 0;                                    // 生产OrderSysID;
+
 protected:
     virtual void MatchOrder(OBSSPtr marketData) {};
 
@@ -29,6 +32,7 @@ public:
 
     virtual void OnMDUpdate(OBSSPtr marketData) override;
     void Subscribe(TradeSubscriberSPtr subscriber);
+    void Init(uint8_t OrderbookLevel);
 protected:
     void RtnOrder(OrderSPtr order);
     void RtnTrade(TradeSPtr trade);
@@ -36,7 +40,7 @@ protected:
 public:
     void OrderInsert(OrderSPtr order);
     void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
-
+    const TradeID NextTradeID();
 };
 
 

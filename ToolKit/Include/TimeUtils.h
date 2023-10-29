@@ -11,6 +11,7 @@ class TimeUtils
 {
 public:
     // ISODatime转换为TimeStamp
+    static TimeStamp GetTimeStampNow();
     
 };
 

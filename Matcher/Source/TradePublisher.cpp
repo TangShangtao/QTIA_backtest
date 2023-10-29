@@ -4,6 +4,10 @@ namespace QB
 {
 namespace Matcher
 {
+void TradePublisher::Init(uint8_t OrderbookLevel)
+{
+    orderbookLevel_ = OrderbookLevel;
+}
 
 void TradePublisher::OnMDUpdate(OBSSPtr marketData)
 {
@@ -63,7 +67,12 @@ void TradePublisher::OrderCancel(OrderSysID orderSysID, OrderRef orderRef)
 
 }
 
-
+const TradeID TradePublisher::NextTradeID()
+{
+    ++currentTradeID;
+    // const OrderSysID orderSysID = "QB" + std::to_string(currentID);
+    return std::string("QBTrade") + std::to_string(currentTradeID);
+}
 
 };
 };

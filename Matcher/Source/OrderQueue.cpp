@@ -1,4 +1,5 @@
 #include "OrderQueue.h"
+#include "TimeUtils.h"
 
 #include <thread>
 #include <future>
@@ -20,8 +21,8 @@ void OrderQueue::InsertToQueue(const OrderSPtr order, bool isBuy, double price)
         }
         else
         {
-            auto& que = it->second;
-            que.emplace_back(order);
+            auto& deque = it->second;
+            deque.emplace_back(order);
         }
     }
     else
@@ -34,16 +35,19 @@ void OrderQueue::InsertToQueue(const OrderSPtr order, bool isBuy, double price)
         }
         else
         {
-            auto& que = it->second;
-            que.emplace_back(order);
+            auto& deque = it->second;
+            deque.emplace_back(order);
         }
     }
 }
 
 OrderSPtr OrderQueue::OrderInsert(OrderSPtr order)
 {
+    order->unfilledVolume = order->orderVolume;
+    order->insertTime = ToolKit::TimeUtils::GetTimeStampNow();
     order->status = OrderStatus::Queuening;
     order->orderSysID = NextOrderSysID();
+
     double price = order->orderPrice;
     DirectionType direction = order->direction;
     switch (direction)
