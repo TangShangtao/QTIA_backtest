@@ -30,8 +30,9 @@ class TradeSubscriber
 {
 public:
     // TODO 改为异步
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) = 0;
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) = 0;
+    virtual void OnRtnOrder(OrderSPtr order) = 0;
+    virtual void OnRtnTrade(TradeSPtr trade) = 0;
+    virtual void OnRspCancel(OrderSysID orderSysID, OrderRef orderRef) {}   // 撤单失败回调
     virtual ~TradeSubscriber() {};
 };
 using TradeSubscriberSPtr = std::shared_ptr<TradeSubscriber>;

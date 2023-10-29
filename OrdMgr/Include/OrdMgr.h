@@ -15,8 +15,8 @@ private:
     std::shared_ptr<Matcher::TradePublisher> matcher_;       // TODO 使用动态加载
 
 public:
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) override;
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) override;
+    virtual void OnRtnOrder(OrderSPtr order) override;
+    virtual void OnRtnTrade(TradeSPtr trade) override;
 public:
     OrderRef OrderInsert(OrderSPtr order);
     void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);

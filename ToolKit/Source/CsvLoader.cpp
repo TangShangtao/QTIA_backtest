@@ -34,7 +34,7 @@ OBSSPtr CsvLoader::ToOrderbookSnapshort()
     }
     // 1672617599976000
     const auto fieldVec = split(CurrentRow);
-    data->symbol = fieldVec[2];               // TODO 
+    data->instrument = fieldVec[2];               // TODO 
     data->ts = fieldVec[3];
     for (int i = 5, j = 0; i <= 21; j++)    
     {

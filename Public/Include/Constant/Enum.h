@@ -26,10 +26,10 @@ enum class CurrencyType : std::uint8_t
 
 };
 
-enum class SideType : std::uint8_t
+enum class DirectionType : std::uint8_t
 {
-    Bid,
-    Ask,
+    Buy,
+    Sell,
 
     Others = UINT8_MAX - 1
 };

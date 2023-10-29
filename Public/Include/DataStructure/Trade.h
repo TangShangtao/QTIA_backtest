@@ -19,7 +19,7 @@ public:
     std::string  symbol;           // 合约名
     SymbolType   symbolType;       // 合约类型
 
-    SideType     side;             // 买卖方向
+    DirectionType     side;             // 买卖方向
     OffsetType   offset;           // 开平方向
     double       orderPrice;       // 下单价
     double       orderVolume;      // 下单量

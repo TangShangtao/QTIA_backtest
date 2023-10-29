@@ -35,8 +35,8 @@ public:
 
 public:
 
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) = 0;
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) = 0;
+    virtual void OnRtnOrder(OrderSPtr order) = 0;
+    virtual void OnRtnTrade(TradeSPtr trade) = 0;
 protected:
     QBApi api_;
 };

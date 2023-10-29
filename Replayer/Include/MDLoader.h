@@ -37,7 +37,7 @@ private:
     // MDType mdType_;
 
     DateTime currDate_;
-    Instrument instrument_;  
+    InstrumentName instrument_;  
 
 public:
     std::atomic_bool LoadOver;

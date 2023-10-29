@@ -38,8 +38,8 @@ public:
 
 public:
 
-    virtual void OnRtnOrder(OrderSPtr order, bool isSucc) override {};
-    virtual void OnRtnTrade(TradeSPtr trade, bool isSucc) override {};
+    virtual void OnRtnOrder(OrderSPtr order) override {};
+    virtual void OnRtnTrade(TradeSPtr trade) override {};
 };
 
 int main()
