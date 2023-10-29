@@ -67,7 +67,7 @@ void MDPublisher::Publishing()
         // 缓存已空
         while (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == false))
         {
-            DEBUG("MDPublisher: 缓存已空");
+            INFO("MDPublisher: 缓存已空");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loader_->loadIntervalMs_)

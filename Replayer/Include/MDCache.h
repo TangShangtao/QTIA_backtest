@@ -33,7 +33,7 @@ public:
 public:
     void pop();
     MDBatch front();
-    void emplace_back(const MDBatch batch);
+    void emplace_back(const MDBatch& batch);
     std::size_t BatchNumInCache();
 
 };

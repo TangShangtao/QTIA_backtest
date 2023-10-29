@@ -18,7 +18,7 @@ MDBatch MDCache::front()
 }
 
 
-void MDCache::emplace_back(const MDBatch batch)
+void MDCache::emplace_back(const MDBatch& batch)
 {
     std::lock_guard<std::mutex> lock(cacheMutex_);
     cache_.emplace_back(batch);    

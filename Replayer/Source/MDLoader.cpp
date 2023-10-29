@@ -75,6 +75,8 @@ void MDLoader::LoadOneDay()
     INFO("MDLoader: start load date {}", currDate_);
     //TODO 
     bool isLoaded = csvLoader_->LoadFile(filePath + instrument_);
+    INFO("MDLoader: load date {} over", currDate_);
+
     if (!isLoaded)
     {
         keepRunning_.store(false);
@@ -85,6 +87,7 @@ void MDLoader::LoadOneDay()
     {
         while (mdCache_->BatchNumInCache() >= maxBatchInCache_)
         {
+            INFO("MDLoader: batch num in cache > max batch in cache");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loadIntervalMs_)

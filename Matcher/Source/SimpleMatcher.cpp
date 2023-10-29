@@ -95,6 +95,7 @@ TradeSPtr SimpleMatcher::BuildTradeFromOrder(const OrderSPtr order)
     trade->symbol = order->symbol;
     trade->symbolType = order->symbolType;
     trade->tradeID = NextTradeID();
+    return trade;
 }
 
 

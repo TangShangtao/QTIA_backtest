@@ -26,10 +26,10 @@ class TestStra : public QB::Strategy::StrategyBase
 {
 public:
     // 1739837
-    virtual void OnBacktestInit() override {std::cout << "OnBacktestStart: Init" << std::endl;}
+    virtual void OnBacktestInit() override {INFO("OnBacktestStart: Init");}
 
-    virtual void OnBacktestStart() override {std::cout << "OnBacktestStart: Start" << std::endl;}
-    virtual void OnBacktestEnd() override {std::cout << "OnBacktestStart: End " << std::endl;}
+    virtual void OnBacktestStart() override {INFO("OnBacktestStart: Start");}
+    virtual void OnBacktestEnd() override {INFO("OnBacktestStart: End");}
     
     // virtual void OnMDUpdate(IOBSPtr marketData) override {};
     // virtual void OnMDUpdate(OBSSPtr marketData) override {};
