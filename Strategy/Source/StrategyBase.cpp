@@ -16,5 +16,6 @@ void StrategyApi::OrderCancel(OrderSysID orderSysID, OrderRef orderRef)
     ordMgr_->OrderCancel(orderSysID, orderRef);
 }
 
+
 };
 };

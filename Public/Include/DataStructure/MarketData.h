@@ -10,37 +10,6 @@
 
 namespace QB
 {
-
-class MDHeader
-{
-public:
-    // ExchangeType exchange;
-    // SymbolType   symbolType;
-    std::string  symbol;
-
-    TimeStamp    ts;
-    // TimeStamp    localTs;
-    
-    // MDType       mdType;
-    // std::string  toStr() const;
-    // std::string  getTopicPrefix() const;
-    // std::string  toJson() const;
-};
-
-class IncrementalOrderBookL2
-{
-public:
-    // MDHeader mdHeader;
-    // bool isSnapShot_;
-    std::string  symbol;        // 合约名
-    TimeStamp    ts;
-    SideType side;
-    double   price;
-    double   volume;
-};
-using IOBSPtr = std::shared_ptr<IncrementalOrderBookL2>;
-using IOBUPtr = std::unique_ptr<IncrementalOrderBookL2>;
-
 class Depth
 {
 public:
@@ -67,5 +36,37 @@ public:
 };
 using OBSSPtr = std::shared_ptr<OrderBookSnapShots>;
 using OBSUPtr = std::unique_ptr<OrderBookSnapShots>;
+
+// class MDHeader
+// {
+// public:
+//     // ExchangeType exchange;
+//     // SymbolType   symbolType;
+//     std::string  symbol;
+
+//     TimeStamp    ts;
+//     // TimeStamp    localTs;
+    
+//     // MDType       mdType;
+//     // std::string  toStr() const;
+//     // std::string  getTopicPrefix() const;
+//     // std::string  toJson() const;
+// };
+
+// class IncrementalOrderBookL2
+// {
+// public:
+//     // MDHeader mdHeader;
+//     // bool isSnapShot_;
+//     std::string  symbol;        // 合约名
+//     TimeStamp    ts;
+//     SideType side;
+//     double   price;
+//     double   volume;
+// };
+// using IOBSPtr = std::shared_ptr<IncrementalOrderBookL2>;
+// using IOBUPtr = std::unique_ptr<IncrementalOrderBookL2>;
+
+
 
 };

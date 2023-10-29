@@ -2,6 +2,7 @@
 #include "Replayer/Include/Runner.h"
 #include "Strategy/Include/StrategyBase.h"
 #include "Protocol.h"
+#include "Logger.h"
 
 using namespace QB::Replayer;
 using namespace QB;
@@ -32,7 +33,8 @@ public:
     
     // virtual void OnMDUpdate(IOBSPtr marketData) override {};
     // virtual void OnMDUpdate(OBSSPtr marketData) override {};
-    virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << marketData->ts << std::endl;}
+    // virtual void OnMDUpdate(OBSSPtr marketData) override {std::cout << marketData->ts << std::endl;}
+    virtual void OnMDUpdate(OBSSPtr marketData) override {}
 
 public:
 
@@ -42,6 +44,7 @@ public:
 
 int main()
 {
+    // ToolKit::Logger::Init("./config/logger.yaml");
     auto runner = Runner();
     auto config = Load("./config/backtestconfig.yaml");
     auto stra = std::make_shared<TestStra>();

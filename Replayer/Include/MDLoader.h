@@ -23,7 +23,6 @@ class MDLoader
 {
 friend class MDPublisher;
 private:
-    std::string filename_;  //测试用
     std::atomic_bool keepRunning_ = false;
     std::unique_ptr<std::thread> loadMDThread_ = nullptr;
     std::shared_ptr<MDCache> mdCache_;
@@ -38,6 +37,8 @@ private:
     // MDType mdType_;
 
     DateTime currDate_;
+    Instrument instrument_;  
+
 public:
     std::atomic_bool LoadOver;
 

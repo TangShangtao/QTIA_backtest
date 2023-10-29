@@ -29,7 +29,7 @@ int MDLoader::Init(const YAML::Node& config, std::shared_ptr<MDCache> cache)
     end_ = config["end"].as<DateTime>(0);
     path_ = config["path"].as<std::string>();
     currDate_ = start_;
-    filename_ = config["file"].as<std::string>();
+    instrument_ = config["instrument"].as<std::string>();
     return 0;
 }
 
@@ -72,9 +72,15 @@ void MDLoader::Loading()
 void MDLoader::LoadOneDay()
 {
     std::string filePath = path_ + "/" + std::to_string(currDate_) + "/";
-    // INFO("MDLoader: start load date {}", currDate_);
+    INFO("MDLoader: start load date {}", currDate_);
     //TODO 
-    csvLoader_->LoadFile(filePath + filename_);
+    bool isLoaded = csvLoader_->LoadFile(filePath + instrument_);
+    if (!isLoaded)
+    {
+        keepRunning_.store(false);
+        LoadOver.store(true);
+        return;
+    }
     while (LoadOneBatch())
     {
         while (mdCache_->BatchNumInCache() >= maxBatchInCache_)
@@ -102,7 +108,7 @@ bool MDLoader::LoadOneBatch()
     }
 
     mdCache_->emplace_back(batch);
-    INFO("MDLoader: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
+    DEBUG("MDLoader: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
     return true;
 }
 

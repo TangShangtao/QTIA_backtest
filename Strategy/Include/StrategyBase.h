@@ -15,7 +15,6 @@ namespace Strategy
 class StrategyApi
 {
 public:
-    bool SubscribeMD(const std::string symbol);
     OrderRef OrderInsert(OrderSPtr order);
     void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
 private:

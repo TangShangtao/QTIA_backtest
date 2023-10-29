@@ -67,7 +67,7 @@ void MDPublisher::Publishing()
         // 缓存已空
         while (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == false))
         {
-            INFO("MDPublisher: 缓存已空");
+            DEBUG("MDPublisher: 缓存已空");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loader_->loadIntervalMs_)
@@ -84,7 +84,7 @@ void MDPublisher::Publishing()
 
 void MDPublisher::PublishOneBatch()
 {
-    INFO("MDPublisher: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
+    DEBUG("MDPublisher: mdCache num {}, Cache ref {}", mdCache_->BatchNumInCache(), mdCache_.use_count());
     auto batch = mdCache_->front();
     for (const auto data : batch)              // TODO 空指针
     {
