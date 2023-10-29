@@ -22,6 +22,7 @@ public:
     DirectionType   direction;        // 买卖方向
     OffsetType      offset;           // 开平方向
     double          orderPrice;       // 下单价
+    double          tradePrice;       // 成交价
     double          orderVolume;      // 下单量
     double          tradeVolume;      // 成交量
     PriceType       priceType;        // 订单类型
