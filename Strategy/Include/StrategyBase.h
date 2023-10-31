@@ -17,6 +17,11 @@ class StrategyApi
 public:
     OrderRef OrderInsert(OrderSPtr order);
     void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
+public:
+    explicit StrategyApi(Matcher::TradePublisherSPtr matcher)
+    {
+        ordMgr_ = std::make_shared<OrdMgr>(matcher);
+    }
 private:
     std::shared_ptr<OrdMgr> ordMgr_;
 };
@@ -37,6 +42,12 @@ public:
 
     virtual void OnRtnOrder(OrderSPtr order) = 0;
     virtual void OnRtnTrade(TradeSPtr trade) = 0;
+    virtual ~StrategyBase() {}
+public:
+    StrategyBase(Matcher::TradePublisherSPtr matcher)
+    {
+        api_ = std::make_shared<StrategyApi>(matcher);
+    }
 protected:
     QBApi api_;
 };

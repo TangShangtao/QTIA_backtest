@@ -14,7 +14,7 @@ namespace QB
 namespace Matcher
 {
 
-class TradePublisher : MDSubscriber
+class TradePublisher : public MDSubscriber
 {
 protected:
     std::unordered_set<TradeSubscriberSPtr> subscribers_;
@@ -31,7 +31,7 @@ public:
     virtual void OnBacktestEnd() override {};
 
     virtual void OnMDUpdate(OBSSPtr marketData) override;
-    void Subscribe(TradeSubscriberSPtr subscriber);
+    void Register(TradeSubscriberSPtr subscriber);
     void Init(uint8_t OrderbookLevel);
 protected:
     void RtnOrder(OrderSPtr order);
@@ -42,7 +42,7 @@ public:
     void OrderCancel(OrderSysID orderSysID, OrderRef orderRef);
     const TradeID NextTradeID();
 };
-
+using TradePublisherSPtr = std::shared_ptr<TradePublisher>;
 
 };
 };

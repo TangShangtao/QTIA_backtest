@@ -14,7 +14,7 @@ namespace Replayer
 
 MDLoader::~MDLoader()
 {
-    if (loadMDThread_->joinable())
+    if (loadMDThread_ != nullptr && loadMDThread_->joinable())
     {
         loadMDThread_->join();
     }
@@ -75,7 +75,6 @@ void MDLoader::LoadOneDay()
     INFO("MDLoader: start load date {}", currDate_);
     //TODO 
     bool isLoaded = csvLoader_->LoadFile(filePath + instrument_);
-    INFO("MDLoader: load date {} over", currDate_);
 
     if (!isLoaded)
     {

@@ -9,7 +9,7 @@ namespace Replayer
 {
 MDPublisher::~MDPublisher()
 {
-    if (consumeMDThread_->joinable())
+    if (consumeMDThread_ != nullptr && consumeMDThread_->joinable())
     {
         consumeMDThread_->join();
     }

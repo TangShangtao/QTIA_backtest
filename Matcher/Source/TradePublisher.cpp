@@ -14,7 +14,7 @@ void TradePublisher::OnMDUpdate(OBSSPtr marketData)
     MatchOrder(marketData);
 }
 
-void TradePublisher::Subscribe(TradeSubscriberSPtr subscriber)
+void TradePublisher::Register(TradeSubscriberSPtr subscriber)
 {
     subscribers_.emplace(subscriber);
 }

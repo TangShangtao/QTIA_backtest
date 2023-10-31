@@ -12,8 +12,12 @@ class OrdMgr : TradeSubscriber
 {
 private:
     OrderRef currOrderRef_ = 0;
-    std::shared_ptr<Matcher::TradePublisher> matcher_;       // TODO 使用动态加载
-
+    Matcher::TradePublisherSPtr matcher_;       // TODO 使用动态加载
+public:
+    explicit OrdMgr(Matcher::TradePublisherSPtr matcher)
+    {
+        matcher_ = matcher;
+    }
 public:
     virtual void OnRtnOrder(OrderSPtr order) override;
     virtual void OnRtnTrade(TradeSPtr trade) override;

@@ -21,4 +21,7 @@ target_link_directories(Test
 target_link_libraries(Test
     PUBLIC ToolKit
     PUBLIC Replayer
+    PUBLIC Matcher
+    PUBLIC Strategy
+    PUBLIC OrdMgr
 )

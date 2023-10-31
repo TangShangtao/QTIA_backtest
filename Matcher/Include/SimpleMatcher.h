@@ -1,3 +1,4 @@
+#pragma once
 #include "TradePublisher.h"
 
 namespace QB
@@ -5,7 +6,7 @@ namespace QB
 namespace Matcher
 {
 
-class SimpleMatcher : TradePublisher
+class SimpleMatcher : public TradePublisher
 {
 private:
     
