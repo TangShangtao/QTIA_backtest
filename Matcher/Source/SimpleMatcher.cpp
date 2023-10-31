@@ -42,9 +42,8 @@ void SimpleMatcher::MatchOneBuyDeque(std::deque<OrderSPtr>& deque, std::array<De
 {
     for (auto it = deque.begin(); it != deque.end(); it++)
     {
-        INFO("SimpleMatcher: deque size {}", deque.size());
+        DEBUG("SimpleMatcher: deque size {}", deque.size());
         auto order = *it;
-        if (order == nullptr) {return;}
         double orderPrice = order->orderPrice;
         double unfilledVolume = order->unfilledVolume;
         for (uint8_t i = 0; i < orderbookLevel_; i++)
@@ -64,6 +63,7 @@ void SimpleMatcher::MatchOneBuyDeque(std::deque<OrderSPtr>& deque, std::array<De
                 trade->tradeVolume = unfilledVolume;
                 RtnTrade(trade);
                 deque.erase(it);
+                it--;
                 depth.Volume -= trade->tradeVolume;     // 消耗行情Orderbook当前level
                 break;                                  // 回报, 撮合下一个订单
             }
