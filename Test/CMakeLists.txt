@@ -19,9 +19,5 @@ target_link_directories(Test
     PUBLIC "${QTIA_LnkDir}"
 )
 target_link_libraries(Test
-    PUBLIC ToolKit
-    PUBLIC Replayer
-    PUBLIC Matcher
-    PUBLIC Strategy
-    PUBLIC OrdMgr
+    PUBLIC Backtest
 )

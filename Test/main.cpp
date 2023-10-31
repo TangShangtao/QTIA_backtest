@@ -4,23 +4,9 @@
 #include "Matcher/Include/SimpleMatcher.h"
 #include "Protocol.h"
 #include "Logger.h"
+#include "Backtest/Include/BtRunner.h"
 
 using namespace QB;
-YAML::Node Load(const std::string& configFilePath)
-{
-    try
-    {
-        return YAML::LoadFile(configFilePath);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << 
-        fmt::format("Load logger config file failed, error: {}", e.what()) 
-                << std::endl;
-        YAML::Node config;
-        return config;
-    }
-}
 
 class TestStra : public Strategy::StrategyBase
 {
@@ -57,23 +43,13 @@ public:
     {
         INFO("RtnTrade: trade amount {}", trade->tradeVolume);
     }
-    TestStra(Matcher::TradePublisherSPtr matcher) : Strategy::StrategyBase(matcher)
-    {}
 };
 
 int main()
 {
     // ToolKit::Logger::Init("./config/logger.yaml");
-    auto runner = std::make_shared<Replayer::Runner>();
-    auto matcher = std::make_shared<Matcher::SimpleMatcher>();
-    auto config = Load("./config/backtestconfig.yaml");
-    auto stra = std::make_shared<TestStra>(matcher);
-
-    runner->Register(stra);
-    runner->Register(matcher);
-    matcher->Register(stra);
-
-    runner->Init(config["replayer"]);
-    matcher->Init(5);
-    runner->Run();
+    auto yourStrategy = std::make_shared<TestStra>();
+    BtRunner runner = BtRunner(yourStrategy);
+    runner.Init("./config/backtestconfig.yaml");
+    runner.Run();
 }
