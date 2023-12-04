@@ -18,7 +18,7 @@ public:
 
     virtual void OnBacktestStart() override {INFO("OnBacktestStart: Start");}
     virtual void OnBacktestEnd() override {INFO("OnBacktestStart: End");}
-    
+    // 回调函数
     virtual void OnMDUpdate(OBSSPtr marketData) override 
     {
         INFO("OnMDUpdate: {}", marketData->asks[0].Price);

@@ -7,7 +7,7 @@
 #include <string>
 #include <memory>
 #include <array>
-
+#include <unordered_map>
 namespace QB
 {
 class Depth
@@ -22,6 +22,7 @@ public:
     }
     Depth() {}
 };
+
 
 class OrderBookSnapShots
 {
