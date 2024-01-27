@@ -56,7 +56,7 @@ void MDLoader::Loading()
         // 缓存完毕
         if (currDate_ > end_)
         {
-            INFO("all MD loaded");
+            DEBUG("all MD loaded");
             keepRunning_.store(false);
             LoadOver.store(true);       // 信号量通知
             return;
@@ -72,7 +72,7 @@ void MDLoader::Loading()
 void MDLoader::LoadOneDay()
 {
     std::string filePath = path_ + "/" + std::to_string(currDate_) + "/";
-    INFO("MDLoader: start load date {}", currDate_);
+    DEBUG("MDLoader: start load date {}", currDate_);
     //TODO 
     bool isLoaded = csvLoader_->LoadFile(filePath + instrument_);
 
@@ -86,7 +86,7 @@ void MDLoader::LoadOneDay()
     {
         while (mdCache_->BatchNumInCache() >= maxBatchInCache_)
         {
-            INFO("MDLoader: batch num in cache > max batch in cache");
+            DEBUG("MDLoader: batch num in cache > max batch in cache");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loadIntervalMs_)
@@ -102,7 +102,7 @@ bool MDLoader::LoadOneBatch()
     {
         if (!csvLoader_->NextRow())
         {
-            INFO("meet eof");
+            DEBUG("meet eof");
             mdCache_->emplace_back(batch);
             return false;
         }

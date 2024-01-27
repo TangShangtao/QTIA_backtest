@@ -46,6 +46,7 @@ void SimpleMatcher::MatchOneBuyDeque(std::deque<OrderSPtr>& deque, std::array<De
         auto order = *it;
         double orderPrice = order->orderPrice;
         double unfilledVolume = order->unfilledVolume;
+        if (unfilledVolume == 0) continue;
         for (uint8_t i = 0; i < orderbookLevel_; i++)
         {
             Depth& depth = asks[i];
@@ -124,7 +125,8 @@ TradeSPtr SimpleMatcher::BuildTradeFromOrder(const OrderSPtr order)
 {
     TradeSPtr trade = std::make_shared<Trade>();
     // trade->exchange
-    // trade->fee
+    // TODO 此处手续费为hardcode，应为从数据库中读取
+    trade->fee = 1.05 * order->orderPrice;
     // trade->feeCurr
     trade->insertTime = order->insertTime;
     trade->offset = order->offset;

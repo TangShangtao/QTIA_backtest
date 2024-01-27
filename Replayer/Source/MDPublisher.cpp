@@ -56,7 +56,7 @@ void MDPublisher::Publishing()
         // INFO("MDPublisher: mdCache num {}", mdCache_->BatchNumInCache());
         if (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == true))
         {
-            INFO("all event published");
+            DEBUG("all event published");
             keepRunning_.store(false);
             for (auto subscriber : MDSubscribers_)
             {
@@ -67,7 +67,7 @@ void MDPublisher::Publishing()
         // 缓存已空
         while (mdCache_->BatchNumInCache() == 0 && (loader_->LoadOver.load() == false))
         {
-            INFO("MDPublisher: 缓存已空");
+            DEBUG("MDPublisher: 缓存已空");
             std::this_thread::sleep_for
             (
                 std::chrono::milliseconds(loader_->loadIntervalMs_)

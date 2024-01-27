@@ -48,7 +48,7 @@ void TradePublisher::OrderInsert(OrderSPtr order)
 {
     order = orderQueue_->OrderInsert(order);
     RtnOrder(order);
-    INFO("Matcher: order received, orderSysId {}, OrderRef {}", order->orderSysID, order->orderRef);
+    DEBUG("Matcher: order received, orderSysId {}, OrderRef {}", order->orderSysID, order->orderRef);
     return;
 
 }
@@ -58,11 +58,11 @@ void TradePublisher::OrderCancel(OrderSysID orderSysID, OrderRef orderRef)
     if (order == nullptr)
     {
         RspCancel(orderSysID, orderRef);
-        INFO("Matcher: order cancel failed, orderSysId {}, orderRef {}", orderSysID, orderRef)
+        DEBUG("Matcher: order cancel failed, orderSysId {}, orderRef {}", orderSysID, orderRef)
         return;
     }
     RtnOrder(order);
-    INFO("Matcher: order cancelled, orderSysId {}, orderRef {}", orderSysID, orderRef);    
+    DEBUG("Matcher: order cancelled, orderSysId {}, orderRef {}", orderSysID, orderRef);    
     return;
 
 }

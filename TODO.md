@@ -6,5 +6,4 @@ export CXX="/usr/local/bin/g++")
 2.cmake 3.27
 3.可以连接github
 TODO
-找一个Ubuntu高点的发行版, 支持apt-get安装gcc 11.2.0和cmake 3.27
-兼容msvc
+手续费从数据库中读取

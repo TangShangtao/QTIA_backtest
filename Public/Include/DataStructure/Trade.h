@@ -1,3 +1,4 @@
+#pragma once
 #include "Constant/Enum.h"
 #include "Constant/Using.h"
 

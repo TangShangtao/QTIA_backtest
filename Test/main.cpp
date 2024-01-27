@@ -14,15 +14,15 @@ private:
     int i_ = 0;
 public:
     // 1739837
-    virtual void OnBacktestInit() override {INFO("OnBacktestStart: Init");}
+    virtual void OnBacktestInit() override {DEBUG("OnBacktestStart: Init");}
 
-    virtual void OnBacktestStart() override {INFO("OnBacktestStart: Start");}
-    virtual void OnBacktestEnd() override {INFO("OnBacktestStart: End");}
+    virtual void OnBacktestStart() override {DEBUG("OnBacktestStart: Start");}
+    virtual void OnBacktestEnd() override {DEBUG("OnBacktestStart: End");}
     // 回调函数
     virtual void OnMDUpdate(OBSSPtr marketData) override 
     {
-        INFO("OnMDUpdate: {}", marketData->asks[0].Price);
-        if (i_ < 1)
+        // DEBUG("OnMDUpdate: {}", marketData->asks[0].Price);
+        if (i_ < 50)
         {
             auto order = std::make_shared<Order>();
             order->direction = DirectionType::Buy;
@@ -37,17 +37,19 @@ public:
     }
     virtual void OnRtnOrder(OrderSPtr order) override
     {
-        INFO("RtnOrder: order status {}", (uint32_t)order->status);
+        // INFO("RtnOrder: order status {}", (uint32_t)order->status);
     }
     virtual void OnRtnTrade(TradeSPtr trade) override
     {
-        INFO("RtnTrade: trade amount {}", trade->tradeVolume);
+        INFO("direction,offset,orderPrice,tradePrice,orderVolume,tradeVolume");
+        INFO("{},{},{},{},{},{}", static_cast<int>(trade->direction), static_cast<int>(trade->offset), trade->orderPrice, \
+        trade->tradePrice, trade->orderVolume, trade->tradeVolume);
     }
 };
 
 int main()
 {
-    // ToolKit::Logger::Init("./config/logger.yaml");
+    // ToolKit::Logger::Inist("./config/logger.yaml");
     auto yourStrategy = std::make_shared<TestStra>();
     BtRunner runner = BtRunner(yourStrategy);
     runner.Init("./config/backtestconfig.yaml");
