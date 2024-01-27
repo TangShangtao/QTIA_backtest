@@ -1,0 +1,15 @@
+replayer:
+    oneBatchLines:   60000                          # 每批次缓存csv中多少行
+    maxBatchInCache: 50                             # 缓存中最多有多少批次数据
+    loadIntervalMs:  1000                           # 每过多少毫秒加载一次行情缓存
+    start:           20230101                       # 回测开始日期
+    end:             20230102                       # 回测结束日期
+    path:            "/home/tangshangtao/test_data" # 数据根目录
+    instrument:      BTCUSDT.csv                    # 订阅合约
+    OrderbookLevel:  5
+# match:
+#     name:           sampleMatch   
+#     slippage:       1
+# strategy:
+#     name:           sampleStrategy 
+#     symbols:        ["BTC.USDT"]
